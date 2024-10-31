@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    stylesheet="../../../main/xml/xslt/gc2csv.xsl">
+
+    <x:scenario
+        pending="Clarify whether it actually is possible to compare CSV or text files using XSpec"
+        label="When input_da.gc is transformed to CSV">
+        <x:context href="../data/input_da.gc" />
+        <x:expect
+            label="the output must equal to output_da.csv"
+            href="../data/output_da.csv" />
+    </x:scenario>
+
+</x:description>

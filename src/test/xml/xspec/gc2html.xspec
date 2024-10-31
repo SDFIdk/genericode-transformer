@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    stylesheet="../../../main/xml/xslt/gc2html.xsl">
+
+    <x:scenario
+        pending="The HTML structure needs to be clarified more before it make sense to write tests and create an expected output file"
+        label="When input_da.gc is transformed to HTML">
+        <x:context href="../data/input_da.gc" />
+        <x:expect
+            label="the output must equal to output_da.html"
+            href="../data/output_da.html" />
+    </x:scenario>
+
+</x:description>

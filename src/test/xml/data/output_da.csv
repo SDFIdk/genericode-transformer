@@ -1,0 +1,4 @@
+kode,navn,definition,kommentar,virkningFra,virkningTil
+"xyz","Navn for xyz","Definition for xyz","Kommentar for xyz som også indeholder et "" tegn og en new line 
+ så korrekt konvertering til CSV kan testes","2024-01-01","2024-06-01"
+"abc","Navn for abc","Definition for abc","","2024-08-01",""

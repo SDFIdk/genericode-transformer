@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messages
+    xml:lang="da"
+    xmlns="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
+    <!-- Headings -->
+    <message id="data">Data</message>
+    <message id="metadata">Metadata</message>
+    
+    <!-- Metadata -->
+    <message id="agency">Organisation</message>
+    <message id="alternateformatlocationuri">Download-URL</message>
+    <message id="canonicaluri">Kanonisk URI</message>
+    <message id="description">Beskrivelse</message>
+    <message id="license">Licens</message>
+    <message id="locationuri">Download-URL</message>
+    <message id="shortname">Kort navn</message>
+    <message id="version">Version</message>
+</messages>
