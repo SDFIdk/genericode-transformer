@@ -5,8 +5,8 @@
 
     <x:scenario
         pending="The HTML structure needs to be clarified more before it make sense to write tests and create an expected output file"
-        label="When input_da.gc is transformed to HTML">
-        <x:context href="../data/input_da.gc" />
+        label="When input_after_publication_da.gc is transformed to HTML">
+        <x:context href="../data/input_after_publication_da.gc" />
         <x:expect
             label="the output must equal to output_da.html"
             href="../data/output_da.html" />

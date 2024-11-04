@@ -1,4 +1,4 @@
-#genericode-validator
+# genericode-validator
 
 ## About the underlying standards and tools
 
@@ -10,15 +10,23 @@
 
 ## Installation
 
+TODO
+
 ## Usage
 
-TODO
+On Windows and using Saxon, an XSLT transformation can be executed with the following command:
+
+```bat
+%JAVA_HOME%bin\java.exe -cp %SAXON_CP% net.sf.saxon.Transform -s:path\to\input.gc -xsl:path\to\gc2<format>.xsl -o:path\to\output.<format>
+```
 
 ## Development
 
 ### Running the tests
 
-On Windows, the XSpec XSLT tests can run using the batch files in the [scripts folder](/scripts). Run the batch files from the root directory of the repository, for instance:
+The XSLT stylesheets are tested using [XSpec](https://github.com/xspec/xspec/), a unit test and behaviour-driven development (BDD) framework for XSLT, XQuery, and Schematron.
+
+On Windows, the XSpec XSLT tests can be run using the batch files in the [scripts folder](/scripts). Run the batch files from the root directory of the repository, for instance:
 
 ```bat
 scripts\run-xslt-tests.bat
