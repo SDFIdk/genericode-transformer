@@ -4,13 +4,11 @@
     xmlns:dcterms="http://purl.org/dc/terms/">
     <Annotation>
         <Description>
-            <dcterms:description>Længere beskrivelse af kodelisten.</dcterms:description>
+            <dcterms:description>Længere beskrivelse af kodelisten. Denne beskrivelse indeholder en new line &#10; for at teste korrekt konvertering til HTML.</dcterms:description>
             <dcterms:provenance>Længere beskrivelse af provenance.</dcterms:provenance>
             <dcterms:language>da</dcterms:language>
             <dcterms:license>https://link.til.licens</dcterms:license>
             <dcterms:source>https://link.til.kilde</dcterms:source>
-            <dcterms:available>2024-08-16</dcterms:available>
-            <dcterms:publisher>Udgiver</dcterms:publisher>
         </Description>
     </Annotation>
     <Identification>
@@ -18,9 +16,6 @@
         <Version>1.0.0</Version>
         <CanonicalUri>urn:uuid:1d4ed807-4372-44b8-8f19-892de1ef8ee1</CanonicalUri>
         <CanonicalVersionUri>urn:uuid:3c4afaae-0527-4cbb-84ea-ffa13866b431</CanonicalVersionUri>
-        <LocationUri>https://sti/til/v1.0.0.kortnavn.gc</LocationUri>
-        <AlternateFormatLocationUri MimeType="text/csv">https://sti/til/v1.0.0.kortnavn.csv</AlternateFormatLocationUri>
-        <AlternateFormatLocationUri MimeType="text/html">https://sti/til/v1.0.0.kortnavn.html</AlternateFormatLocationUri>
         <Agency>
             <LongName>Organisation</LongName>
         </Agency>
@@ -119,7 +114,7 @@
                 <SimpleValue>Definition for xyz</SimpleValue>
             </Value>
             <Value ColumnRef="kommentar">
-                <SimpleValue>Kommentar for xyz som også indeholder et " tegn og en new line &#10; så korrekt konvertering til CSV kan testes</SimpleValue>
+                <SimpleValue>Kommentar for xyz som også indeholder et " tegn og en new line &#10; så korrekt konvertering til CSV og HTML kan testes</SimpleValue>
             </Value>
             <Value ColumnRef="virkningFra">
                 <SimpleValue>2024-01-01</SimpleValue>

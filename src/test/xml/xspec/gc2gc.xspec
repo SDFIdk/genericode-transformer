@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    stylesheet="../../../main/xml/xslt/gc2gc.xsl">
+
+    <x:param
+        name="publicationDate"
+        select="xsd:date('2024-08-16')" />
+        
+    <x:param
+        name="publisher"
+        select="'Udgiver'" />
+        
+    <x:param
+        name="location"
+        select="'https://sti/til/'" />
+        
+    <!-- strip-space=yes,
+    see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
+    <x:scenario label="When input_before_publication_da.gc is transformed to genericode">
+        <x:context href="../data/input_before_publication_da.gc?strip-space=yes" />
+        <x:expect
+            label="the output must equal to input_after_publication_da.gc (ignoring whitespace)"
+            href="../data/input_after_publication_da.gc?strip-space=yes" />
+    </x:scenario>
+
+</x:description>
