@@ -7,7 +7,7 @@
     xmlns:msg="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    exclude-result-prefixes="gc xsd">
+    exclude-result-prefixes="gc xsd dcterms msg">
 
     <!--
     html-version: see https://www.saxonica.com/documentation12/index.html#!xsl-elements/output and https://www.w3.org/TR/xslt-30/
@@ -60,6 +60,9 @@
 
     <xsl:template match="/">
         <html>
+            <xsl:attribute
+                name="lang"
+                select="$lang" />
             <head>
                 <title>
                     <xsl:value-of select="gc:CodeList/Identification/ShortName" />
@@ -86,11 +89,10 @@
                 </script>
                 <script class="init">
                     $(document).ready(function() {
-                        $('#codelist').DataTable({
+                        $("#codelist").DataTable({
                             "language": {
-                                "url": 'https://cdn.datatables.net/plug-ins/<xsl:value-of select="$dataTablesVersion" />/i18n/<xsl:value-of select="$lang" />.json'
-        },
-                            
+                                "url": <xsl:call-template name="getLocationDataTablesTranslation" />
+                            },
                         });
                     });
                 </script>
@@ -111,6 +113,24 @@
                 </main>
             </body>
         </html>
+    </xsl:template>
+
+    <xsl:template name="getLocationDataTablesTranslation">
+        <!-- See https://datatables.net/plug-ins/i18n/ for available translations of DataTables. -->
+        <xsl:variable
+            name="dataTableslanguages"
+            as="map(xsd:string, xsd:string)">
+            <xsl:map>
+                <xsl:map-entry
+                    key="'da'"
+                    select="'da'" />
+                <xsl:map-entry
+                    key="'en'"
+                    select="'en-GB'" />
+                <!-- Add more as needed -->
+            </xsl:map>
+        </xsl:variable>
+        <xsl:value-of select="'&#34;https://cdn.datatables.net/plug-ins/' || $dataTablesVersion || '/i18n/' || $dataTableslanguages($lang) || '.json&#34;'" />
     </xsl:template>
 
     <xsl:template
@@ -159,7 +179,7 @@
             
             <!-- Different handling of Agency, as it has element children -->
             <tr>
-                <th>
+                <th scope="row">
                     <xsl:call-template name="localizedMessage">
                         <xsl:with-param
                             name="id"
@@ -188,7 +208,7 @@
     <xsl:template name="outputTextMetadataElement">
         <xsl:param name="element" />
         <tr>
-            <th>
+            <th scope="row">
                 <xsl:call-template name="localizedMessage">
                     <xsl:with-param
                         name="id"
@@ -196,7 +216,11 @@
                 </xsl:call-template>
             </th>
             <td>
-                <xsl:value-of select="$element/text()" />
+                <xsl:call-template name="convertNewLineToHtmlLineBreak">
+                    <xsl:with-param
+                        name="text"
+                        select="$element/text()" />
+                </xsl:call-template>
             </td>
         </tr>
     </xsl:template>
@@ -204,7 +228,7 @@
     <xsl:template name="outputHyperlinkMetadataElement">
         <xsl:param name="element" />
         <tr>
-            <th>
+            <th scope="row">
                 <xsl:call-template name="localizedMessage">
                     <xsl:with-param
                         name="id"
@@ -257,7 +281,7 @@
             <thead>
                 <tr>
                     <xsl:for-each select="ColumnSet/Column">
-                        <th>
+                        <th scope="col">
                             <xsl:value-of select="@Id" />
                         </th>
                     </xsl:for-each>
@@ -270,7 +294,9 @@
                     <tr>
                         <xsl:for-each select="Value">
                             <td>
-                                <xsl:value-of select="SimpleValue" />
+                                <xsl:call-template name="convertNewLineToHtmlLineBreak">
+                                    <xsl:with-param name="text" select="SimpleValue" />
+                                </xsl:call-template>
                             </td>
                         </xsl:for-each>
                     </tr>
@@ -279,4 +305,14 @@
         </table>
     </xsl:template>
 
+    <xsl:template name="convertNewLineToHtmlLineBreak">
+        <xsl:param name="text" />
+        <xsl:for-each select="tokenize($text, '&#10;')">
+            <xsl:value-of select="." />
+            <xsl:if test="not(position() eq last())">
+                <br />
+            </xsl:if>
+        </xsl:for-each>
+    </xsl:template>
+    
 </xsl:stylesheet>
