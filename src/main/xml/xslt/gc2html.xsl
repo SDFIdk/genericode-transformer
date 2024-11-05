@@ -71,11 +71,11 @@
                     <xsl:attribute
                         name="href"
                         select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion || '/designsystem.css'" />
-                    <link rel="stylesheet">
-                        <xsl:attribute
-                            name="href"
-                            select="'https://cdn.datatables.net/' || $dataTablesVersion || '/css/dataTables.dataTables.min.css'" />
-                    </link>
+                </link>
+                <link rel="stylesheet">
+                    <xsl:attribute
+                        name="href"
+                        select="'https://cdn.datatables.net/' || $dataTablesVersion || '/css/dataTables.dataTables.min.css'" />
                 </link>
                 <script>
                     <xsl:attribute
