@@ -34,7 +34,7 @@
 
     <xsl:param
         name="designsystemVersion"
-        select="'7.0'" />
+        select="'8'" /> <!-- designsystem version fra v7.0 til v8 -->
 
     <xsl:variable
         name="lang"
@@ -64,6 +64,8 @@
                 name="lang"
                 select="$lang" />
             <head>
+                <meta charset="UTF-8" /> <!-- sæt html character encoding til utf8 -->
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- sæt pænt view for alle devices --> 
                 <title>
                     <xsl:value-of select="gc:CodeList/Identification/ShortName" />
                 </title>
