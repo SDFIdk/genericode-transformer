@@ -100,12 +100,19 @@
                 </script>
             </head>
             <body>
-                <header>
-                    <h1>
-                        <xsl:value-of select="gc:CodeList/Identification/ShortName" />
-                    </h1>
+                <header class="ds-header">
+                    <div class="ds-container">
+                        <p class="ds-logo">
+                            <div>
+                                <img src="https://www.klimadatastyrelsen.dk/Media/638615471416374845/logo-ny.svg" alt="Logo" class="svg" width="300" height="360" />
+                            </div>
+                        </p>
+                        <h1>
+                            <xsl:value-of select="gc:CodeList/Identification/ShortName" />
+                        </h1>
+                    </div>
                 </header>
-                <main>
+                <main class="ds-container ds-pt-lg ds-pb-lg">
                     <xsl:apply-templates
                         select="gc:CodeList"
                         mode="metadata" />
