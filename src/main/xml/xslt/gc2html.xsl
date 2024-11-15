@@ -113,9 +113,11 @@
                     </div>
                 </header>
                 <main class="ds-container ds-pt-lg ds-pb-lg">
-                    <xsl:apply-templates
-                        select="gc:CodeList"
-                        mode="metadata" />
+                    <section class="ds-grid-2-1">
+                        <xsl:apply-templates
+                            select="gc:CodeList"
+                            mode="metadata" />
+                    </section>
                     <xsl:apply-templates
                         select="gc:CodeList"
                         mode="data" />
@@ -146,73 +148,75 @@
     <xsl:template
         match="gc:CodeList"
         mode="metadata">
-        <h2>
-            <xsl:call-template name="localizedMessage">
-                <xsl:with-param
-                    name="id"
-                    select="'metadata'" />
-            </xsl:call-template>
-        </h2>
-        <table>
-            <!-- TODO Agree on order of elements -->
+        <article>
+            <h2>
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'metadata'" />
+                </xsl:call-template>
+            </h2>
+            <table>
+                <!-- TODO Agree on order of elements -->
 
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/ShortName" />
-            </xsl:call-template>
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/Version" />
-            </xsl:call-template>
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/CanonicalUri" />
-            </xsl:call-template>
-            <!-- TODO add other Identification/* elements -->
-            
-            <!--  TODO Move download links in their own section? With a nice button perhaps? -->
-            <xsl:call-template name="outputHyperlinkMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/LocationUri" />
-            </xsl:call-template>
-            <xsl:for-each select="Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/ShortName" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/Version" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/CanonicalUri" />
+                </xsl:call-template>
+                <!-- TODO add other Identification/* elements -->
+                
+                <!--  TODO Move download links in their own section? With a nice button perhaps? -->
                 <xsl:call-template name="outputHyperlinkMetadataElement">
                     <xsl:with-param
                         name="element"
-                        select="." />
+                        select="Identification/LocationUri" />
                 </xsl:call-template>
-            </xsl:for-each>
-            
-            <!-- Different handling of Agency, as it has element children -->
-            <tr>
-                <th scope="row">
-                    <xsl:call-template name="localizedMessage">
+                <xsl:for-each select="Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
+                    <xsl:call-template name="outputHyperlinkMetadataElement">
                         <xsl:with-param
-                            name="id"
-                            select="'agency'" />
+                            name="element"
+                            select="." />
                     </xsl:call-template>
-                </th>
-                <td>
-                    <xsl:value-of select="Identification/Agency/LongName" />
-                </td>
-            </tr>
+                </xsl:for-each>
+                
+                <!-- Different handling of Agency, as it has element children -->
+                <tr>
+                    <th scope="row">
+                        <xsl:call-template name="localizedMessage">
+                            <xsl:with-param
+                                name="id"
+                                select="'agency'" />
+                        </xsl:call-template>
+                    </th>
+                    <td>
+                        <xsl:value-of select="Identification/Agency/LongName" />
+                    </td>
+                </tr>
 
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Annotation/Description/dcterms:description" />
-            </xsl:call-template>
-            <xsl:call-template name="outputHyperlinkMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Annotation/Description/dcterms:license" />
-            </xsl:call-template>
-            <!-- TODO Add other Dublin Core elements -->
-        </table>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:description" />
+                </xsl:call-template>
+                <xsl:call-template name="outputHyperlinkMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:license" />
+                </xsl:call-template>
+                <!-- TODO Add other Dublin Core elements -->
+            </table>
+        </article>
     </xsl:template>
 
     <xsl:template name="outputTextMetadataElement">
@@ -280,39 +284,41 @@
     <xsl:template
         match="gc:CodeList"
         mode="data">
-        <h2>
-            <xsl:call-template name="localizedMessage">
-                <xsl:with-param
-                    name="id"
-                    select="'data'" />
-            </xsl:call-template>
-        </h2>
-        <table id="codelist">
-            <thead>
-                <tr>
-                    <xsl:for-each select="ColumnSet/Column">
-                        <th scope="col">
-                            <xsl:value-of select="@Id" />
-                        </th>
-                    </xsl:for-each>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Assumption: The order of the values is the same as the order of the declared columns and
-                an undefined value is encoded as an empty `Value` element. -->
-                <xsl:for-each select="SimpleCodeList/Row">
+        <article class="ds-pt-lg">
+            <h2>
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'data'" />
+                </xsl:call-template>
+            </h2>
+            <table id="codelist">
+                <thead>
                     <tr>
-                        <xsl:for-each select="Value">
-                            <td>
-                                <xsl:call-template name="convertNewLineToHtmlLineBreak">
-                                    <xsl:with-param name="text" select="SimpleValue" />
-                                </xsl:call-template>
-                            </td>
+                        <xsl:for-each select="ColumnSet/Column">
+                            <th scope="col">
+                                <xsl:value-of select="@Id" />
+                            </th>
                         </xsl:for-each>
                     </tr>
-                </xsl:for-each>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <!-- Assumption: The order of the values is the same as the order of the declared columns and
+                    an undefined value is encoded as an empty `Value` element. -->
+                    <xsl:for-each select="SimpleCodeList/Row">
+                        <tr>
+                            <xsl:for-each select="Value">
+                                <td>
+                                    <xsl:call-template name="convertNewLineToHtmlLineBreak">
+                                        <xsl:with-param name="text" select="SimpleValue" />
+                                    </xsl:call-template>
+                                </td>
+                            </xsl:for-each>
+                        </tr>
+                    </xsl:for-each>
+                </tbody>
+            </table>
+        </article>
     </xsl:template>
 
     <xsl:template name="convertNewLineToHtmlLineBreak">
