@@ -117,6 +117,7 @@
                         <xsl:apply-templates
                             select="gc:CodeList"
                             mode="metadata" />
+                        <xsl:call-template name="download" />
                     </section>
                     <xsl:apply-templates
                         select="gc:CodeList"
@@ -331,6 +332,26 @@
         </xsl:for-each>
     </xsl:template>
     
+    <xsl:template name ="download">
+        <article>
+            <h2>Download</h2>
+            <div>
+                <button style="width: 10rem; margin-top: 10px;"><svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
+                        <path d="M27 8L15.21 19.79C14.82 20.18 14.18 20.18 13.79 19.79L2 8M14.5 20L14.5 1M1.5 26.5H27.5"></path>
+                    </g>
+                    </svg>Download .csv</button>
+            </div>
+            <div>
+                <button style="width: 10rem; margin-top: 10px;"><svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
+                        <path d="M27 8L15.21 19.79C14.82 20.18 14.18 20.18 13.79 19.79L2 8M14.5 20L14.5 1M1.5 26.5H27.5"></path>
+                    </g>
+                    </svg>Download .gc</button>
+            </div>
+        </article>
+    </xsl:template>
+
     <xsl:template name="footer">
         <footer class="ds-footer" data-theme="light">
             <div class="ds-container">
