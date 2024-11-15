@@ -120,6 +120,7 @@
                         select="gc:CodeList"
                         mode="data" />
                 </main>
+                <xsl:call-template name="footer" />
             </body>
         </html>
     </xsl:template>
@@ -324,4 +325,22 @@
         </xsl:for-each>
     </xsl:template>
     
+    <xsl:template name="footer">
+        <footer class="ds-footer" data-theme="light">
+            <div class="ds-container">
+                <h2 class="ds-logo-responsive ds-logo-pull-left">
+                    <span>Klimadatastyrelsen</span>
+                </h2>
+                <a href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste" target="_blank">Send en e-mail til os for henvendelser om kodelister</a>
+                <hr />
+                <p>2024-11-08, version 1.0.0</p>
+            </div>
+            <aside class="ds-container">
+                <code-example data-snip="ex-layout"/>
+            </aside>
+            <a style="position: fixed; bottom: var(--space-md); left: var(--space);" role="button" href="https://sdfidk.github.io/kodelisteregister">
+                <svg><use href="../../assets/icons.svg#arrow-left"/></svg>Tilbage til forsiden</a>
+        </footer>
+    </xsl:template>
+
 </xsl:stylesheet>
