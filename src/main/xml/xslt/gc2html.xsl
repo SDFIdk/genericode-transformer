@@ -176,6 +176,11 @@
                         select="Identification/CanonicalUri" />
                 </xsl:call-template>
                 <!-- TODO add Identification/canonicalVersionUri -->
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/CanonicalVersionUri" />
+                </xsl:call-template>
                 
                 <!-- Different handling of Agency, as it has element children -->
                 <tr>
@@ -201,7 +206,21 @@
                         name="element"
                         select="Annotation/Description/dcterms:license" />
                 </xsl:call-template>
-                <!-- TODO Add other Dublin Core elements -->
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param 
+                        name="element"
+                        select="Annotation/Description/dcterms:available"/>
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param 
+                        name="element"
+                        select="Annotation/Description/dcterms:provenance"/>
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param 
+                        name="element"
+                        select="Annotation/Description/dcterms:publisher"/>
+                </xsl:call-template>
             </table>
         </article>
     </xsl:template>
