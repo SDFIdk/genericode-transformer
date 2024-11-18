@@ -175,7 +175,6 @@
                         name="element"
                         select="Identification/CanonicalUri" />
                 </xsl:call-template>
-                <!-- TODO add Identification/canonicalVersionUri -->
                 <xsl:call-template name="outputTextMetadataElement">
                     <xsl:with-param
                         name="element"
@@ -221,6 +220,13 @@
                         name="element"
                         select="Annotation/Description/dcterms:publisher"/>
                 </xsl:call-template>
+                <xsl:if test="exists(Annotation/Description/dcterms:source)">
+                    <xsl:call-template name="outputTextMetadataElement">
+                        <xsl:with-param
+                            name="element"
+                            select="Annotation/Description/dcterms:source"/>
+                    </xsl:call-template>
+                </xsl:if>
             </table>
         </article>
     </xsl:template>
