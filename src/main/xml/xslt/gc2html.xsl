@@ -175,21 +175,7 @@
                         name="element"
                         select="Identification/CanonicalUri" />
                 </xsl:call-template>
-                <!-- TODO add other Identification/* elements -->
-                
-                <!--  TODO Move download links in their own section? With a nice button perhaps? -->
-                <xsl:call-template name="outputHyperlinkMetadataElement">
-                    <xsl:with-param
-                        name="element"
-                        select="Identification/LocationUri" />
-                </xsl:call-template>
-                <xsl:for-each select="Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
-                    <xsl:call-template name="outputHyperlinkMetadataElement">
-                        <xsl:with-param
-                            name="element"
-                            select="." />
-                    </xsl:call-template>
-                </xsl:for-each>
+                <!-- TODO add Identification/canonicalVersionUri -->
                 
                 <!-- Different handling of Agency, as it has element children -->
                 <tr>
@@ -332,24 +318,39 @@
         </xsl:for-each>
     </xsl:template>
     
-    <xsl:template name ="download">
+    <xsl:template name="download">
         <article>
             <h2>Download</h2>
             <div>
-                <button style="width: 10rem; margin-top: 10px;"><svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
-                        <path d="M27 8L15.21 19.79C14.82 20.18 14.18 20.18 13.79 19.79L2 8M14.5 20L14.5 1M1.5 26.5H27.5"></path>
-                    </g>
-                    </svg>Download .csv</button>
+                <xsl:call-template name="downloadbutton">
+                    <xsl:with-param name="downloadlink" select="gc:CodeList/Identification/LocationUri" />
+                    <xsl:with-param name="format" select="'GC'" />
+                </xsl:call-template>
             </div>
             <div>
-                <button style="width: 10rem; margin-top: 10px;"><svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
-                        <path d="M27 8L15.21 19.79C14.82 20.18 14.18 20.18 13.79 19.79L2 8M14.5 20L14.5 1M1.5 26.5H27.5"></path>
-                    </g>
-                    </svg>Download .gc</button>
+                <xsl:for-each select="gc:CodeList/Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
+                    <xsl:call-template name="downloadbutton">
+                        <xsl:with-param name="downloadlink" select="." />
+                        <xsl:with-param name="format" select="'CSV'"/>
+                    </xsl:call-template>
+                </xsl:for-each>
             </div>
         </article>
+    </xsl:template>
+
+    <xsl:template name="downloadbutton">
+        <xsl:param name="downloadlink"/>
+        <xsl:param name="format" />
+        <a style="width: 5rem; margin-top: 10px;" role="button">
+            <xsl:attribute name="href">
+                <xsl:value-of select="$downloadlink" />
+            </xsl:attribute>
+            <svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
+                    <path d="M27 8L15.21 19.79C14.82 20.18 14.18 20.18 13.79 19.79L2 8M14.5 20L14.5 1M1.5 26.5H27.5"></path>
+                </g>
+            </svg><xsl:value-of select="$format" />
+        </a>
     </xsl:template>
 
     <xsl:template name="footer">
@@ -366,7 +367,12 @@
                 <code-example data-snip="ex-layout"/>
             </aside>
             <a style="position: fixed; bottom: var(--space-md); left: var(--space);" role="button" href="https://sdfidk.github.io/kodelisteregister">
-                <svg><use href="../../assets/icons.svg#arrow-left"/></svg>Tilbage til forsiden</a>
+                <svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
+                        <path d="M15.54 27.54L3.75 15.75C3.36 15.36 3.36 14.73 3.75 14.34L15.54 2.54M3.54 15.04H25.54"></path>
+                    </g>
+                </svg>Tilbage til register
+            </a>
         </footer>
     </xsl:template>
 
