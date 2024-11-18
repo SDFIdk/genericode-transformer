@@ -12,14 +12,14 @@
     <message id="agency">Organisation</message>
     <message id="alternateformatlocationuri">Download-URL</message>
     <message id="canonicaluri">Kanonisk URI</message>
-	<message id="canonicalversionuri">Kanonisk versions URI</message>
+    <message id="canonicalversionuri">Kanonisk versions URI</message>
     <message id="description">Beskrivelse</message>
     <message id="license">Licens</message>
     <message id="locationuri">Download-URL</message>
     <message id="shortname">Kort navn</message>
     <message id="version">Version</message>
-	<message id="publisher">Udgiver</message>
-	<message id="provenance">Oprindelse</message>
-	<message id="available">Udgivelsestidspunkt</message>
-	<message id="source">Kilde</message>
+    <message id="publisher">Udgiver</message>
+    <message id="provenance">Oprindelse</message>
+    <message id="available">Udgivelsestidspunkt</message>
+    <message id="source">Kilde</message>
 </messages>
