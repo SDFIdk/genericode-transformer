@@ -12,9 +12,14 @@
     <message id="agency">Agency</message>
     <message id="alternateformatlocationuri">Download URL</message>
     <message id="canonicaluri">Canonical URI</message>
+    <message id="canonicalversionuri">Canonical version URI</message>
     <message id="description">Description</message>
     <message id="license">License</message>
     <message id="locationuri">Download URL</message>
     <message id="shortname">Short name</message>
     <message id="version">Version</message>
+    <message id="publisher">Publisher</message>
+    <message id="provenance">Provenance</message>
+    <message id="available">Release date</message>
+    <message id="source">Source</message>
 </messages>
