@@ -58,12 +58,14 @@
         </xsl:choose>
     </xsl:template>
 
+    <!-- general struktur for html siden -->
     <xsl:template match="/">
         <html>
             <xsl:attribute
                 name="lang"
                 select="$lang" />
             <head>
+                <!-- dokumentets metadata -->
                 <meta charset="UTF-8" /> <!-- sæt html character encoding til utf8 -->
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- sæt pænt view for alle devices --> 
                 <title>
@@ -100,10 +102,12 @@
                 </script>
             </head>
             <body>
+                <!-- header sektionen -->
                 <header class="ds-header">
                     <div class="ds-container">
                         <p class="ds-logo">
                             <div>
+                                <!-- AFHÆNGIGHED! linked nedenfor skal mulighvis ændres til en anden afhængighed -->
                                 <img src="https://www.klimadatastyrelsen.dk/Media/638615471416374845/logo-ny.svg" alt="Logo" class="svg" width="300" height="360" />
                             </div>
                         </p>
@@ -112,17 +116,22 @@
                         </h1>
                     </div>
                 </header>
+                <!-- kerne indholdet for kodelisten -->
                 <main class="ds-container ds-pt-lg ds-pb-lg">
                     <section class="ds-grid-2-1">
+                        <!-- kodeliste metadata -->
                         <xsl:apply-templates
                             select="gc:CodeList"
                             mode="metadata" />
+                        <!-- download kodeliste til ønsket format -->
                         <xsl:call-template name="download" />
                     </section>
+                    <!-- kodeliste data! -->
                     <xsl:apply-templates
                         select="gc:CodeList"
                         mode="data" />
                 </main>
+                <!-- footer sektionen-->
                 <xsl:call-template name="footer" />
             </body>
         </html>
@@ -145,7 +154,9 @@
         </xsl:variable>
         <xsl:value-of select="'&#34;https://cdn.datatables.net/plug-ins/' || $dataTablesVersion || '/i18n/' || $dataTableslanguages($lang) || '.json&#34;'" />
     </xsl:template>
-
+    
+    <!-- metadata template -->
+    <!-- AFHÆNGIGHED: outputTextMetadataElement, localizedMessage, outputHyperlinkMetadataElement -->
     <xsl:template
         match="gc:CodeList"
         mode="metadata">
@@ -230,7 +241,10 @@
             </table>
         </article>
     </xsl:template>
-
+    
+    <!-- indsætter metadata i tabel -->
+    <!-- AFHÆNGIGHED: convertNewLineToHtmlLineBreak, localizedMessage -->
+    <!-- bruges af: template gc:codelist/metadata -->
     <xsl:template name="outputTextMetadataElement">
         <xsl:param name="element" />
         <tr>
@@ -251,6 +265,9 @@
         </tr>
     </xsl:template>
 
+    <!-- indsætter hyperlink data i tabel -->
+    <!-- AFHÆNGIHED: localizedMessage -->
+    <!-- bruges af: template gc:codelist/metadata -->
     <xsl:template name="outputHyperlinkMetadataElement">
         <xsl:param name="element" />
         <tr>
@@ -293,6 +310,8 @@
     <!-- TODO Find out where gc:CodeList/ColumnSet/Column/Annotation/Description/dcterms:description elements
     should be documented -->
 
+    <!-- Template for kodelistens data indhold -->
+    <!-- AFHÆNGIGHED: localizedMessage, convertNewLineToHtmlLineBreak -->
     <xsl:template
         match="gc:CodeList"
         mode="data">
@@ -333,6 +352,8 @@
         </article>
     </xsl:template>
 
+    <!-- html linebreaks -->
+    <!-- bruges af: template gc:codelist/metadata, template gc:codelist/data-->
     <xsl:template name="convertNewLineToHtmlLineBreak">
         <xsl:param name="text" />
         <xsl:for-each select="tokenize($text, '&#10;')">
@@ -343,16 +364,21 @@
         </xsl:for-each>
     </xsl:template>
     
+    <!-- opstilling af download delen -->
+    <!-- AFHÆNGIG: downloadbutton -->
+    <!-- bruges af: root template i body/main -->
     <xsl:template name="download">
         <article>
             <h2>Download</h2>
             <div>
+                <!-- download format genericode -->
                 <xsl:call-template name="downloadbutton">
                     <xsl:with-param name="downloadlink" select="gc:CodeList/Identification/LocationUri" />
                     <xsl:with-param name="format" select="'GC'" />
                 </xsl:call-template>
             </div>
             <div>
+                <!-- download format CSV -->
                 <xsl:for-each select="gc:CodeList/Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
                     <xsl:call-template name="downloadbutton">
                         <xsl:with-param name="downloadlink" select="." />
@@ -363,9 +389,12 @@
         </article>
     </xsl:template>
 
+    <!-- styling af download knappen og hyperlink -->
+    <!-- bruges af: download -->
     <xsl:template name="downloadbutton">
         <xsl:param name="downloadlink"/>
         <xsl:param name="format" />
+        <!-- element størrelse, afstand til ovenliggende element, angiv element som knap -->
         <a style="width: 5rem; margin-top: 10px;" role="button">
             <xsl:attribute name="href">
                 <xsl:value-of select="$downloadlink" />
@@ -378,6 +407,8 @@
         </a>
     </xsl:template>
 
+    <!-- footer opsætning -->
+    <!-- bruges af: root template sidst i body-->
     <xsl:template name="footer">
         <footer class="ds-footer" data-theme="light">
             <div class="ds-container">
@@ -391,6 +422,7 @@
             <aside class="ds-container">
                 <code-example data-snip="ex-layout"/>
             </aside>
+            <!-- fix knap til bundens venstre side som bringer bruger tilbage til kodelisteregister-->
             <a style="position: fixed; bottom: var(--space-md); left: var(--space);" role="button" href="https://sdfidk.github.io/kodelisteregister">
                 <svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
