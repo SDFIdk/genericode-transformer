@@ -232,7 +232,7 @@
                         select="Annotation/Description/dcterms:publisher"/>
                 </xsl:call-template>
                 <xsl:if test="exists(Annotation/Description/dcterms:source)">
-                    <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:call-template name="outputHyperlinkMetadataElement">
                         <xsl:with-param
                             name="element"
                             select="Annotation/Description/dcterms:source"/>
@@ -309,6 +309,9 @@
                             </xsl:attribute>
                             <!-- indsætter licens iconer -->
                             <xsl:call-template name="licenseicons" />
+                        </xsl:when>
+                        <xsl:when test="$element/local-name() eq 'source'">
+                            <xsl:value-of select="$element/text()" />
                         </xsl:when>
                     </xsl:choose>
                 </a>
