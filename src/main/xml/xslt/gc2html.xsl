@@ -209,27 +209,7 @@
                 <xsl:call-template name="outputTextMetadataElement">
                     <xsl:with-param
                         name="element"
-                        select="Annotation/Description/dcterms:description" />
-                </xsl:call-template>
-                <xsl:call-template name="outputHyperlinkMetadataElement">
-                    <xsl:with-param
-                        name="element"
-                        select="Annotation/Description/dcterms:license" />
-                </xsl:call-template>
-                <xsl:call-template name="outputTextMetadataElement">
-                    <xsl:with-param 
-                        name="element"
-                        select="Annotation/Description/dcterms:available"/>
-                </xsl:call-template>
-                <xsl:call-template name="outputTextMetadataElement">
-                    <xsl:with-param 
-                        name="element"
                         select="Annotation/Description/dcterms:provenance"/>
-                </xsl:call-template>
-                <xsl:call-template name="outputTextMetadataElement">
-                    <xsl:with-param 
-                        name="element"
-                        select="Annotation/Description/dcterms:publisher"/>
                 </xsl:call-template>
                 <xsl:if test="exists(Annotation/Description/dcterms:source)">
                     <xsl:call-template name="outputHyperlinkMetadataElement">
@@ -238,6 +218,26 @@
                             select="Annotation/Description/dcterms:source"/>
                     </xsl:call-template>
                 </xsl:if>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:description" />
+                </xsl:call-template>
+                <xsl:call-template name="outputHyperlinkMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:license" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:available"/>
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param 
+                        name="element"
+                        select="Annotation/Description/dcterms:publisher"/>
+                </xsl:call-template>
             </table>
         </article>
     </xsl:template>
