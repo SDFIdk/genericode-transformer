@@ -9,10 +9,10 @@
     <message id="metadata">Metadata</message>
     
     <!-- Metadata -->
-    <message id="agency">Organisation</message>
+    <message id="agency">Ejer</message>
     <message id="alternateformatlocationuri">Download-URL</message>
-    <message id="canonicaluri">Kanonisk URI</message>
-    <message id="canonicalversionuri">Kanonisk versions URI</message>
+    <message id="canonicaluri">Unik id</message>
+    <message id="canonicalversionuri">Unik id for version</message>
     <message id="description">Beskrivelse</message>
     <message id="license">Licens</message>
     <message id="locationuri">Download-URL</message>
