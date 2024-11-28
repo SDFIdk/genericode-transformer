@@ -340,6 +340,9 @@
                     <tr>
                         <xsl:for-each select="ColumnSet/Column">
                             <th scope="col">
+                                <xsl:attribute name="title">
+                                    <xsl:value-of select="Annotation/Description/dcterms:description" /> 
+                                </xsl:attribute>
                                 <xsl:value-of select="@Id" />
                             </th>
                         </xsl:for-each>
@@ -392,7 +395,7 @@
                     C45.918,19.5,46.129,19.986,46.129,20.557z M33.042,12.329c0-3.008,1.485-4.514,4.458-4.514s4.457,1.504,4.457,4.514
                     c0,2.971-1.486,4.457-4.457,4.457S33.042,15.3,33.042,12.329z">
                 </path>
-            </g>
+            </g>license-by
         </svg>
         <svg class="ds-icon" version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
             <g transform="translate(-5.5 3.5)">
@@ -416,7 +419,7 @@
                     c-1.486,0.896-3.105,1.343-4.857,1.343c-2.896,0-5.209-0.875-6.941-2.629c-1.736-1.752-2.602-4.19-2.602-7.313
                     c0-3.048,0.885-5.466,2.658-7.257c1.77-1.79,4.008-2.686,6.713-2.686C51.117,18.558,53.938,20.101,55.613,23.187z">
                 </path>
-            </g>
+            </g>license-cc
         </svg>
     </xsl:template>
     <!-- opstilling af download delen -->
@@ -450,7 +453,7 @@
         <xsl:param name="downloadlink"/>
         <xsl:param name="format" />
         <!-- element størrelse, afstand til ovenliggende element, angiv element som knap -->
-        <a style="width: 5rem; margin-top: 10px;" role="button">
+        <a style="width: 5rem; margin-top: 10px; min-width: 44px; min-height: 44px;" role="button">
             <xsl:attribute name="href">
                 <xsl:value-of select="$downloadlink" />
             </xsl:attribute>
@@ -478,7 +481,7 @@
                 <code-example data-snip="ex-layout"/>
             </aside>
             <!-- fix knap til bundens venstre side som bringer bruger tilbage til kodelisteregister-->
-            <a style="position: fixed; bottom: var(--space-md); left: var(--space);" role="button" href="https://sdfidk.github.io/kodelisteregister">
+            <a style="position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height: 44px;" role="button" href="https://sdfidk.github.io/kodelisteregister">
                 <svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
                         <path d="M15.54 27.54L3.75 15.75C3.36 15.36 3.36 14.73 3.75 14.34L15.54 2.54M3.54 15.04H25.54"></path>
