@@ -475,7 +475,7 @@
                 </h2>
                 <a href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste" target="_blank">Send en e-mail til os for henvendelser om kodelister</a>
                 <hr />
-                <p>2024-11-08, version 1.0.0</p>
+                <p style="line-height: 1.5;">2024-11-08, version 1.0.0</p>
             </div>
             <aside class="ds-container">
                 <code-example data-snip="ex-layout"/>
