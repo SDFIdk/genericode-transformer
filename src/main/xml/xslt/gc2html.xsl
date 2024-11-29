@@ -302,13 +302,23 @@
                         </xsl:when>
                         <xsl:when test="$element/local-name() eq 'license'">
                             <xsl:attribute name="target">
+                                <!--blank åbner link i ny tab-->
                                 <xsl:value-of select="'_blank'" />
                             </xsl:attribute>
                             <xsl:attribute name="style">
+                                <!--sæt ikoner tæt på hinanden-->
                                 <xsl:value-of select="'gap: 0;'" />
                             </xsl:attribute>
                             <!-- indsætter licens iconer -->
-                            <xsl:call-template name="licenseicons" />
+                            <xsl:choose>
+                                <xsl:when test="$element/text() eq 'https://creativecommons.org/licenses/by/4.0/deed.da'">
+                                    <xsl:call-template name="licenseicons" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <!--hvis licens ikke er https://creativecommons.org/licenses/by/4.0/deed.da så indsæt kun hyperlink tekst-->
+                                    <xsl:value-of select="$element/text()" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:when>
                         <xsl:when test="$element/local-name() eq 'source'">
                             <xsl:value-of select="$element/text()" />
