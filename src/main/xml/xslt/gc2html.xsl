@@ -391,6 +391,7 @@
     
     <!-- indsætter licens icons -->
     <!-- bruges af: outputHyperlinkMetadataElement -->
+    <!-- AFHÆNGIGHED: licens ikoners visning er afhængig af et "specifikt link" specificeret i outputHyperlinkMetadataElement -->
     <xsl:template name="licenseicons">
         <svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
             <g transform="translate(-5.5 3.5)">
