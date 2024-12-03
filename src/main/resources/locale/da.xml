@@ -4,11 +4,21 @@
     xmlns="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
+    
+    <!-- Register metadata -->
+    <message id="registeremailmessage">Send en e-mail til os for henvendelser om kodelister</message>
+    <message id="registergdprmessage">Bemærk: Sender du os en e-mail, vil oplysningerne blive registreret i vores centrale, digitale system til videre sagsbehandling.</message>
+    <message id="registername">Kodelisteregister</message>
+    <message id="registerowner">Klimadatastyrelsen</message>
+    
+    <!-- Navigation -->
+    <message id="backtofrontpage">Tilbage til register</message>
+    
     <!-- Headings -->
     <message id="data">Data</message>
     <message id="metadata">Metadata</message>
     
-    <!-- Metadata -->
+    <!-- Code list metadata -->
     <message id="agency">Ejer</message>
     <message id="alternateformatlocationuri">Download-URL</message>
     <message id="available">Udgivelsesdato</message>

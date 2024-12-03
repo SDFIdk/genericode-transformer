@@ -4,6 +4,16 @@
     xmlns="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
+    
+    <!-- Register metadata -->
+    <message id="registeremailmessage">Email us for code list enquiries</message>
+    <message id="registergdprmessage">Note: If you send us an email, the information will be registered in our centralised digital system for further processing.</message>
+    <message id="registername">Code list register</message>
+    <message id="registerowner">Agency for Climate Data</message>
+    
+    <!-- Navigation -->
+    <message id="backtofrontpage">Tilbage til register</message>
+    
     <!-- Headings -->
     <message id="data">Data</message>
     <message id="metadata">Metadata</message>

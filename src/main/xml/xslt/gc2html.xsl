@@ -15,11 +15,10 @@
     omit-xml-declaration: if not present (default: no), https://validator.w3.org will give an error: "XML processing instructions are not supported in HTML"
     -->
     <xsl:output
-        method="xhtml"
+        method="html"
         html-version="5.0"
         include-content-type="no"
-        omit-xml-declaration="yes"
-        indent="yes" />
+        omit-xml-declaration="yes" />
     
     <!-- See https://www.w3.org/TR/xslt-30/#element-mode and https://www.w3.org/TR/xslt-30/#built-in-templates-shallow-skip -->
     <xsl:mode on-no-match="shallow-skip" />
@@ -34,8 +33,8 @@
 
     <xsl:param
         name="designsystemVersion"
-        select="'8'" /> <!-- designsystem version fra v7.0 til v8 -->
-
+        select="'8'" />
+        
     <xsl:variable
         name="lang"
         select="/gc:CodeList/Annotation/Description/dcterms:language" />
@@ -43,7 +42,7 @@
     <xsl:variable
         name="localizedMessages"
         select="document(concat('../../resources/locale/', $lang, '.xml'))/msg:messages" />
-
+        
     <xsl:template name="localizedMessage">
         <xsl:param name="id" />
         <xsl:choose>
@@ -58,16 +57,16 @@
         </xsl:choose>
     </xsl:template>
 
-    <!-- general struktur for html siden -->
     <xsl:template match="/">
         <html>
             <xsl:attribute
                 name="lang"
                 select="$lang" />
             <head>
-                <!-- dokumentets metadata -->
-                <meta charset="UTF-8" /> <!-- sæt html character encoding til utf8 -->
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- sæt pænt view for alle devices --> 
+                <meta charset="utf-8" /><!-- See https://html.spec.whatwg.org/multipage/semantics.html#charset -->
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0" /><!-- Nice view, also for narrow screen devices, see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag -->
                 <title>
                     <xsl:value-of select="gc:CodeList/Identification/ShortName" />
                 </title>
@@ -76,6 +75,15 @@
                         name="href"
                         select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion || '/designsystem.css'" />
                 </link>
+                <script type="module">
+                    import {
+                    DSLogo,
+                    DSLogoTitle
+                    } from
+                    <xsl:value-of select="'''https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion || '/designsystem.js'''" />
+                    customElements.define('ds-logo', DSLogo)
+                    customElements.define('ds-logo-title', DSLogoTitle)
+                </script>
                 <link rel="stylesheet">
                     <xsl:attribute
                         name="href"
@@ -93,24 +101,37 @@
                 </script>
                 <script class="init">
                     $(document).ready(function() {
-                        $("#codelist").DataTable({
-                            "language": {
-                                "url": <xsl:call-template name="getLocationDataTablesTranslation" />
-                            },
-                        });
+                    $("#codelist").DataTable({
+                    "language": {
+                    "url":
+                    <xsl:call-template name="getLocationDataTablesTranslation" />
+                    },
+                    });
                     });
                 </script>
+                <style>
+                    #button-backtofrontpage{position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height: 44px;}
+                </style>
             </head>
             <body>
-                <!-- header sektionen -->
                 <header class="ds-header">
                     <div class="ds-container">
-                        <p class="ds-logo">
-                            <div>
-                                <!-- AFHÆNGIGHED! linked nedenfor skal mulighvis ændres til en anden afhængighed -->
-                                <img src="https://www.klimadatastyrelsen.dk/Media/638615471416374845/logo-ny.svg" alt="Logo" class="svg" width="300" height="360" />
-                            </div>
-                        </p>
+                        <ds-logo-title>
+                            <xsl:attribute name="title">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registername'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <xsl:attribute name="byline">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registerowner'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </ds-logo-title>
                         <h1>
                             <xsl:value-of select="gc:CodeList/Identification/ShortName" />
                         </h1>
@@ -131,8 +152,67 @@
                         select="gc:CodeList"
                         mode="data" />
                 </main>
-                <!-- footer sektionen-->
-                <xsl:call-template name="footer" />
+                <div class="ds-padding">
+                    <nav>
+                        <a
+                            id="button-backtofrontpage"
+                            href="../../../index.html"
+                            role="button">
+                            <svg
+                                class="ds-icon"
+                                width="29"
+                                height="29"
+                                viewBox="0 0 29 29"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g
+                                    stroke="var(--ds-icon-color, white)"
+                                    stroke-linejoin="round"
+                                    stroke-linecap="round"
+                                    stroke-width="var(--ds-icon-stroke, 1)">
+                                    <path d="M15.54 27.54L3.75 15.75C3.36 15.36 3.36 14.73 3.75 14.34L15.54 2.54M3.54 15.04H25.54"></path>
+                                </g>
+                            </svg>
+                            <xsl:call-template name="localizedMessage">
+                                <xsl:with-param
+                                    name="id"
+                                    select="'backtofrontpage'" />
+                            </xsl:call-template>
+                        </a>
+                    </nav>
+                </div>
+                <footer class="ds-footer">
+                    <div class="ds-container">
+                        <ds-logo-title class="transparent">
+                            <xsl:attribute name="title">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registerowner'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </ds-logo-title>
+                        <hr />
+                        <p>
+                            <a
+                                href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste"
+                                target="_blank">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                        name="id"
+                                        select="'registeremailmessage'" />
+                                </xsl:call-template>
+                            </a>
+                        </p>
+                        <p>
+                            <xsl:call-template name="localizedMessage">
+                                <xsl:with-param
+                                    name="id"
+                                    select="'registergdprmessage'" />
+                            </xsl:call-template>
+                        </p>
+                    </div>
+                </footer>
             </body>
         </html>
     </xsl:template>
@@ -474,32 +554,6 @@
                 </g>
             </svg><xsl:value-of select="$format" />
         </a>
-    </xsl:template>
-
-    <!-- footer opsætning -->
-    <!-- bruges af: root template sidst i body-->
-    <xsl:template name="footer">
-        <footer class="ds-footer" data-theme="light">
-            <div class="ds-container">
-                <h2 class="ds-logo-responsive ds-logo-pull-left">
-                    <span>Klimadatastyrelsen</span>
-                </h2>
-                <a href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste" target="_blank">Send en e-mail til os for henvendelser om kodelister</a>
-                <hr />
-                <p style="line-height: 1.5;">2024-11-08, version 1.0.0</p>
-            </div>
-            <aside class="ds-container">
-                <code-example data-snip="ex-layout"/>
-            </aside>
-            <!-- fix knap til bundens venstre side som bringer bruger tilbage til kodelisteregister-->
-            <a style="position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height: 44px;" role="button" href="https://sdfidk.github.io/kodelisteregister">
-                <svg class="ds-icon" width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="var(--ds-icon-color, white)" stroke-linejoin="round" stroke-linecap="round" stroke-width="var(--ds-icon-stroke, 1)">
-                        <path d="M15.54 27.54L3.75 15.75C3.36 15.36 3.36 14.73 3.75 14.34L15.54 2.54M3.54 15.04H25.54"></path>
-                    </g>
-                </svg>Tilbage til register
-            </a>
-        </footer>
     </xsl:template>
 
 </xsl:stylesheet>
