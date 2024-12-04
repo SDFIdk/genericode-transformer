@@ -16,6 +16,7 @@
     
     <!-- Headings -->
     <message id="data">Data</message>
+    <message id="download">Download</message>
     <message id="metadata">Metadata</message>
     
     <!-- Metadata -->
