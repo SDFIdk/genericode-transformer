@@ -15,11 +15,10 @@
     omit-xml-declaration: if not present (default: no), https://validator.w3.org will give an error: "XML processing instructions are not supported in HTML"
     -->
     <xsl:output
-        method="xhtml"
+        method="html"
         html-version="5.0"
         include-content-type="no"
-        omit-xml-declaration="yes"
-        indent="yes" />
+        omit-xml-declaration="yes" />
     
     <!-- See https://www.w3.org/TR/xslt-30/#element-mode and https://www.w3.org/TR/xslt-30/#built-in-templates-shallow-skip -->
     <xsl:mode on-no-match="shallow-skip" />
@@ -34,7 +33,31 @@
 
     <xsl:param
         name="designsystemVersion"
-        select="'7.0'" />
+        select="'8'" />
+
+    <xsl:param
+        name="designsystemUrl"
+        select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion" />
+
+    <xsl:variable
+        name="arrowLeftIcon"
+        select="document($designsystemUrl || '/icons/arrow-left.svg')" />
+
+    <xsl:variable
+        name="downloadIcon"
+        select="document($designsystemUrl || '/icons/download.svg')" />
+
+    <xsl:variable
+        name="licenseByIcon"
+        select="document($designsystemUrl || '/icons/license-by.svg')" />
+
+    <xsl:variable
+        name="licenseCcIcon"
+        select="document($designsystemUrl || '/icons/license-cc.svg')" />
+
+    <xsl:variable
+        name="mailIcon"
+        select="document($designsystemUrl || '/icons/mail.svg')" />
 
     <xsl:variable
         name="lang"
@@ -64,14 +87,27 @@
                 name="lang"
                 select="$lang" />
             <head>
+                <meta charset="utf-8" /><!-- See https://html.spec.whatwg.org/multipage/semantics.html#charset -->
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0" /><!-- Nice view, also for narrow screen devices, see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag -->
                 <title>
                     <xsl:value-of select="gc:CodeList/Identification/ShortName" />
                 </title>
                 <link rel="stylesheet">
                     <xsl:attribute
                         name="href"
-                        select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion || '/designsystem.css'" />
+                        select="$designsystemUrl || '/designsystem.css'" />
                 </link>
+                <script type="module">
+                    import {
+                    DSLogo,
+                    DSLogoTitle
+                    } from
+                    <xsl:value-of select="' '' ' || $designsystemUrl || '/designsystem.js '' '" />
+                    customElements.define('ds-logo', DSLogo)
+                    customElements.define('ds-logo-title', DSLogoTitle)
+                </script>
                 <link rel="stylesheet">
                     <xsl:attribute
                         name="href"
@@ -89,28 +125,114 @@
                 </script>
                 <script class="init">
                     $(document).ready(function() {
-                        $("#codelist").DataTable({
-                            "language": {
-                                "url": <xsl:call-template name="getLocationDataTablesTranslation" />
-                            },
-                        });
+                    $("#codelist").DataTable({
+                    "language": {
+                    "url":
+                    <xsl:call-template name="getLocationDataTablesTranslation" />
+                    },
+                    "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "∞"]
+                    ]
+                    });
                     });
                 </script>
+                <style>
+                    /* Override DataTables color again */
+                    div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active{color: var(--color) !important}
+                    div.dt-container .dt-input{color: var(--color);background-color: var(--background-color);}
+                    /* Custom styles */
+                    #button-backtofrontpage{position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height:
+                    44px;}
+                    #downloadsection a[role="button"]{width: 6rem; margin: var(--space-xs); min-width: 44px;
+                    min-height: 44px;}
+                </style>
             </head>
             <body>
-                <header>
-                    <h1>
-                        <xsl:value-of select="gc:CodeList/Identification/ShortName" />
-                    </h1>
+                <header class="ds-header">
+                    <div class="ds-container">
+                        <ds-logo-title>
+                            <xsl:attribute name="title">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registername'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                            <xsl:attribute name="byline">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registerowner'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </ds-logo-title>
+                        <h1>
+                            <xsl:value-of select="gc:CodeList/Identification/ShortName" />
+                        </h1>
+                    </div>
                 </header>
-                <main>
-                    <xsl:apply-templates
-                        select="gc:CodeList"
-                        mode="metadata" />
+                <main class="ds-container ds-pt-lg ds-pb-lg">
+                    <div class="ds-grid-2-1">
+                        <xsl:apply-templates
+                            select="gc:CodeList"
+                            mode="metadata" />
+                        <xsl:apply-templates
+                            select="gc:CodeList"
+                            mode="download" />
+                    </div>
                     <xsl:apply-templates
                         select="gc:CodeList"
                         mode="data" />
                 </main>
+                <div class="ds-padding">
+                    <nav>
+                        <a
+                            id="button-backtofrontpage"
+                            href="../../../index.html"
+                            role="button">
+                            <xsl:copy-of select="$arrowLeftIcon" />
+                            <xsl:call-template name="localizedMessage">
+                                <xsl:with-param
+                                    name="id"
+                                    select="'backtofrontpage'" />
+                            </xsl:call-template>
+                        </a>
+                    </nav>
+                </div>
+                <footer class="ds-footer">
+                    <div class="ds-container">
+                        <ds-logo-title class="transparent">
+                            <xsl:attribute name="title">
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                name="id"
+                                select="'registerowner'" />
+                                </xsl:call-template>
+                            </xsl:attribute>
+                        </ds-logo-title>
+                        <hr />
+                        <p>
+                            <a
+                                href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste"
+                                target="_blank">
+                                <xsl:copy-of select="$mailIcon" />
+                                <xsl:call-template name="localizedMessage">
+                                    <xsl:with-param
+                                        name="id"
+                                        select="'registeremailmessage'" />
+                                </xsl:call-template>
+                            </a>
+                        </p>
+                        <p>
+                            <xsl:call-template name="localizedMessage">
+                                <xsl:with-param
+                                    name="id"
+                                    select="'registergdprmessage'" />
+                            </xsl:call-template>
+                        </p>
+                    </div>
+                </footer>
             </body>
         </html>
     </xsl:template>
@@ -136,73 +258,84 @@
     <xsl:template
         match="gc:CodeList"
         mode="metadata">
-        <h2>
-            <xsl:call-template name="localizedMessage">
-                <xsl:with-param
-                    name="id"
-                    select="'metadata'" />
-            </xsl:call-template>
-        </h2>
-        <table>
-            <!-- TODO Agree on order of elements -->
+        <section>
+            <h2>
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'metadata'" />
+                </xsl:call-template>
+            </h2>
+            <table>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/ShortName" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/Version" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/CanonicalUri" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Identification/CanonicalVersionUri" />
+                </xsl:call-template>
+                
+                <!-- Different handling of Agency, as it has element children -->
+                <tr>
+                    <th scope="row">
+                        <xsl:call-template name="localizedMessage">
+                            <xsl:with-param
+                                name="id"
+                                select="'agency'" />
+                        </xsl:call-template>
+                    </th>
+                    <td>
+                        <xsl:value-of select="Identification/Agency/LongName" />
+                    </td>
+                </tr>
 
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/ShortName" />
-            </xsl:call-template>
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/Version" />
-            </xsl:call-template>
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/CanonicalUri" />
-            </xsl:call-template>
-            <!-- TODO add other Identification/* elements -->
-            
-            <!--  TODO Move download links in their own section? With a nice button perhaps? -->
-            <xsl:call-template name="outputHyperlinkMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Identification/LocationUri" />
-            </xsl:call-template>
-            <xsl:for-each select="Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:provenance" />
+                </xsl:call-template>
+                <xsl:if test="exists(Annotation/Description/dcterms:source)">
+                    <xsl:call-template name="outputHyperlinkMetadataElement">
+                        <xsl:with-param
+                            name="element"
+                            select="Annotation/Description/dcterms:source" />
+                    </xsl:call-template>
+                </xsl:if>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:description" />
+                </xsl:call-template>
                 <xsl:call-template name="outputHyperlinkMetadataElement">
                     <xsl:with-param
                         name="element"
-                        select="." />
+                        select="Annotation/Description/dcterms:license" />
                 </xsl:call-template>
-            </xsl:for-each>
-            
-            <!-- Different handling of Agency, as it has element children -->
-            <tr>
-                <th scope="row">
-                    <xsl:call-template name="localizedMessage">
-                        <xsl:with-param
-                            name="id"
-                            select="'agency'" />
-                    </xsl:call-template>
-                </th>
-                <td>
-                    <xsl:value-of select="Identification/Agency/LongName" />
-                </td>
-            </tr>
-
-            <xsl:call-template name="outputTextMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Annotation/Description/dcterms:description" />
-            </xsl:call-template>
-            <xsl:call-template name="outputHyperlinkMetadataElement">
-                <xsl:with-param
-                    name="element"
-                    select="Annotation/Description/dcterms:license" />
-            </xsl:call-template>
-            <!-- TODO Add other Dublin Core elements -->
-        </table>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:available" />
+                </xsl:call-template>
+                <xsl:call-template name="outputTextMetadataElement">
+                    <xsl:with-param
+                        name="element"
+                        select="Annotation/Description/dcterms:publisher" />
+                </xsl:call-template>
+            </table>
+        </section>
     </xsl:template>
 
     <xsl:template name="outputTextMetadataElement">
@@ -241,68 +374,81 @@
                         <xsl:value-of select="$element/text()" />
                     </xsl:attribute>
                     <xsl:choose>
-                        <xsl:when test="$element/local-name() eq 'LocationUri'">
-                            <xsl:attribute name="type">
-                                <xsl:value-of select="'application/xml'" />
-	                       </xsl:attribute>
-                            <xsl:attribute name="rel">
-                                <xsl:value-of select="'alternate'" />
+                        <xsl:when test="$element/local-name() eq 'license'">
+                            <xsl:attribute name="target">
+                                <xsl:value-of select="'_blank'" />
                             </xsl:attribute>
-                        </xsl:when>
-                        <xsl:when test="$element/local-name() eq 'AlternateFormatLocationUri'">
-                            <xsl:attribute name="type">
-                                <xsl:value-of select="@MimeType" />
-	                       </xsl:attribute>
-                            <xsl:attribute name="rel">
-                                <xsl:value-of select="'alternate'" />
+                            <xsl:attribute name="style">
+                                <xsl:value-of select="'gap: 0;'" /><!-- Put icons closely together -->
                             </xsl:attribute>
+                            <xsl:choose>
+                                <xsl:when test="starts-with($element/text(),'https://creativecommons.org/licenses/by/4.0/')">
+                                    <xsl:attribute name="aria-label">
+                                <xsl:value-of select="'CC BY 4.0'" />
+                            </xsl:attribute>
+                                    <xsl:copy-of select="$licenseCcIcon" />
+                                    <xsl:copy-of select="$licenseByIcon" />
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="$element/text()" />
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </xsl:when>
+                        <xsl:when test="$element/local-name() eq 'source'">
+                            <xsl:value-of select="$element/text()" />
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$element/text()" />
+                        </xsl:otherwise>
                     </xsl:choose>
-                    <xsl:value-of select="$element/text()" />
                 </a>
             </td>
         </tr>
     </xsl:template>
-    
-    <!-- TODO Find out where gc:CodeList/ColumnSet/Column/Annotation/Description/dcterms:description elements
-    should be documented -->
 
     <xsl:template
         match="gc:CodeList"
         mode="data">
-        <h2>
-            <xsl:call-template name="localizedMessage">
-                <xsl:with-param
-                    name="id"
-                    select="'data'" />
-            </xsl:call-template>
-        </h2>
-        <table id="codelist">
-            <thead>
-                <tr>
-                    <xsl:for-each select="ColumnSet/Column">
-                        <th scope="col">
-                            <xsl:value-of select="@Id" />
-                        </th>
-                    </xsl:for-each>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Assumption: The order of the values is the same as the order of the declared columns and
-                an undefined value is encoded as an empty `Value` element. -->
-                <xsl:for-each select="SimpleCodeList/Row">
+        <section class="ds-pt-lg">
+            <h2>
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'data'" />
+                </xsl:call-template>
+            </h2>
+            <table id="codelist">
+                <thead>
                     <tr>
-                        <xsl:for-each select="Value">
-                            <td>
-                                <xsl:call-template name="convertNewLineToHtmlLineBreak">
-                                    <xsl:with-param name="text" select="SimpleValue" />
-                                </xsl:call-template>
-                            </td>
+                        <xsl:for-each select="ColumnSet/Column">
+                            <th scope="col">
+                                <xsl:attribute name="title">
+                                    <xsl:value-of select="Annotation/Description/dcterms:description" /> 
+                                </xsl:attribute>
+                                <xsl:value-of select="@Id" />
+                            </th>
                         </xsl:for-each>
                     </tr>
-                </xsl:for-each>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <!-- Assumption: The order of the values is the same as the order of the declared columns and
+                    an undefined value is encoded as an empty `Value` element. -->
+                    <xsl:for-each select="SimpleCodeList/Row">
+                        <tr>
+                            <xsl:for-each select="Value">
+                                <td>
+                                    <xsl:call-template name="convertNewLineToHtmlLineBreak">
+                                        <xsl:with-param
+                                            name="text"
+                                            select="SimpleValue" />
+                                    </xsl:call-template>
+                                </td>
+                            </xsl:for-each>
+                        </tr>
+                    </xsl:for-each>
+                </tbody>
+            </table>
+        </section>
     </xsl:template>
 
     <xsl:template name="convertNewLineToHtmlLineBreak">
@@ -314,5 +460,77 @@
             </xsl:if>
         </xsl:for-each>
     </xsl:template>
-    
+
+
+    <xsl:template
+        match="gc:CodeList"
+        mode="download">
+        <section id="downloadsection">
+            <h2>
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'download'" />
+                </xsl:call-template>
+            </h2>
+            <xsl:call-template name="downloadbutton">
+                <xsl:with-param
+                    name="downloadlink"
+                    select="Identification/LocationUri" />
+                <xsl:with-param
+                    name="format"
+                    select="'GC'" />
+                <!-- No entry for genericode in https://www.iana.org/assignments/media-types/media-types.xhtml,
+                so using the media type for XML -->
+                <xsl:with-param
+                    name="mediatype"
+                    select="'application/xml'" />
+            </xsl:call-template>
+            <xsl:for-each select="Identification/AlternateFormatLocationUri[not(@MimeType eq 'text/html')]">
+                <xsl:call-template name="downloadbutton">
+                    <xsl:with-param
+                        name="downloadlink"
+                        select="." />
+                    <xsl:with-param name="format">
+                        <xsl:choose>
+                            <xsl:when test="@MimeType eq 'text/csv'">
+                                <xsl:value-of select="'CSV'" />
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <xsl:message>
+                                    <xsl:value-of select="'WARNING: No format name defined for media type ' || @MimeType" />
+                                </xsl:message>
+                                <xsl:value-of select="'???'" />
+                            </xsl:otherwise>
+                        </xsl:choose>
+                    </xsl:with-param>
+                    <xsl:with-param
+                        name="mediatype"
+                        select="@MimeType" />
+                </xsl:call-template>
+            </xsl:for-each>
+        </section>
+    </xsl:template>
+
+    <xsl:template name="downloadbutton">
+        <xsl:param name="downloadlink" />
+        <xsl:param name="format" />
+        <xsl:param name="mediatype" />
+        <div>
+            <a role="button">
+                <xsl:attribute name="href">
+                    <xsl:value-of select="$downloadlink" />
+                </xsl:attribute>
+                <xsl:attribute name="type">
+                    <xsl:value-of select="$mediatype" />
+                </xsl:attribute>
+                <xsl:attribute name="rel">
+                    <xsl:value-of select="'alternate'" />
+                </xsl:attribute>
+                <xsl:copy-of select="$downloadIcon" />
+                <xsl:value-of select="$format" />
+            </a>
+        </div>
+    </xsl:template>
+
 </xsl:stylesheet>

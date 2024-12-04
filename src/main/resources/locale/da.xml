@@ -4,17 +4,33 @@
     xmlns="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
+    
+    <!-- Register metadata -->
+    <message id="registeremailmessage">Send en e-mail til os for henvendelser om kodelister</message>
+    <message id="registergdprmessage">Bemærk: Sender du os en e-mail, vil oplysningerne blive registreret i vores centrale, digitale system til videre sagsbehandling.</message>
+    <message id="registername">Kodelisteregister</message>
+    <message id="registerowner">Klimadatastyrelsen</message>
+    
+    <!-- Navigation -->
+    <message id="backtofrontpage">Tilbage til register</message>
+    
     <!-- Headings -->
     <message id="data">Data</message>
+    <message id="download">Download</message>
     <message id="metadata">Metadata</message>
     
-    <!-- Metadata -->
-    <message id="agency">Organisation</message>
+    <!-- Code list metadata -->
+    <message id="agency">Ejer</message>
     <message id="alternateformatlocationuri">Download-URL</message>
-    <message id="canonicaluri">Kanonisk URI</message>
+    <message id="available">Udgivelsesdato</message>
+    <message id="canonicaluri">Unik id</message>
+    <message id="canonicalversionuri">Unik id for version</message>
     <message id="description">Beskrivelse</message>
     <message id="license">Licens</message>
     <message id="locationuri">Download-URL</message>
+    <message id="provenance">Oprindelse</message>
+    <message id="publisher">Udgiver</message>
     <message id="shortname">Kort navn</message>
+    <message id="source">Kilde</message>
     <message id="version">Version</message>
 </messages>
