@@ -19,10 +19,10 @@
     <!-- strip-space=yes,
     see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
     <x:scenario label="When input_before_publication_da.gc is transformed to genericode">
-        <x:context href="../data/input_before_publication_da.gc?strip-space=yes" />
+        <x:context href="../data/gc2gc/input_before_publication_da.gc?strip-space=yes" />
         <x:expect
             label="the output must equal to input_after_publication_da.gc (ignoring whitespace)"
-            href="../data/input_after_publication_da.gc?strip-space=yes" />
+            href="../data/gc2gc/input_after_publication_da.gc?strip-space=yes" />
     </x:scenario>
 
 </x:description>
