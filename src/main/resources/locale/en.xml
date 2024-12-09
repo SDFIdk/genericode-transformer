@@ -13,6 +13,12 @@
     
     <!-- Navigation -->
     <message id="backtofrontpage">Tilbage til register</message>
+    <message id="frontpage">the front page</message>
+    
+    <!-- Code list overview page -->
+    <message id="aboutversions">Code lists versions</message>
+    <message id="chooseversion">Choose code list version</message>
+    <message id="readaboutversions">Read about versioning of code lists on</message>
     
     <!-- Headings -->
     <message id="data">Data</message>

@@ -4,6 +4,10 @@
     xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    
+    <!-- 
+    Stylesheet that converts a genericode file to a CSV file.
+    -->
 
     <xsl:output method="text" />
     

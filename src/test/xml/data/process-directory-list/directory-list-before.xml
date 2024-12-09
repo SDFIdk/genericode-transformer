@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:directory xml:base="file:/C:/path/to/mydirectory/"
+             name="mydirectory"
+             xmlns:c="http://www.w3.org/ns/xproc-step">
+    <c:directory xml:base="myregister/"
+                 name="myregister">
+        <c:directory xml:base="codelist1/"
+                     name="codelist1">
+            <c:file xml:base="v1.0.0.codelist1.html"
+                    name="v1.0.0.codelist1.html"/>
+            <c:file xml:base="v2.0.0.codelist1.html"
+                    name="v2.0.0.codelist1.html"/>
+            <c:file xml:base="v1.1.0.codelist1.html"
+                    name="v1.1.0.codelist1.html"/>
+            <c:file xml:base="v1.2.0.codelist1.html"
+                    name="v1.2.0.codelist1.html"/>
+            <c:file xml:base="v1.2.2.codelist1.html"
+                    name="v1.2.2.codelist1.html"/>
+            <c:file xml:base="v1.2.1.codelist1.html"
+                    name="v1.2.1.codelist1.html"/>
+        </c:directory>
+        <c:directory xml:base="codelist2/"
+                     name="codelist2">
+            <c:file xml:base="v1.0.0.codelist2.html"
+                    name="v1.0.0.codelist2.html"/>
+            <c:file xml:base="v1.1.0.codelist2.html"
+                    name="v1.1.0.codelist2.html"/>
+        </c:directory>
+    </c:directory>
+</c:directory>

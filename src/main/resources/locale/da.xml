@@ -13,6 +13,13 @@
     
     <!-- Navigation -->
     <message id="backtofrontpage">Tilbage til register</message>
+    <message id="frontpage">forsiden</message>
+    
+    <!-- Code list overview page -->
+    <message id="aboutversions">Versioner af kodelister</message>
+    <message id="chooseversion">Vælg version af kodeliste</message>
+    <message id="codelistoverviewmanchet1">Her er versionerne af kodelisten</message>
+    <message id="readaboutversions">Læs om versionering af kodelister på</message>
     
     <!-- Headings -->
     <message id="data">Data</message>

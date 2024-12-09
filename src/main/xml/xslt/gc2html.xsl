@@ -7,7 +7,11 @@
     xmlns:msg="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    exclude-result-prefixes="gc xsd dcterms msg">
+    exclude-result-prefixes="#all">
+    
+    <!-- 
+    Stylesheet that convert a genericode file to a HTML file.
+    -->
 
     <!--
     html-version: see https://www.saxonica.com/documentation12/index.html#!xsl-elements/output and https://www.w3.org/TR/xslt-30/
@@ -22,26 +26,16 @@
     
     <!-- See https://www.w3.org/TR/xslt-30/#element-mode and https://www.w3.org/TR/xslt-30/#built-in-templates-shallow-skip -->
     <xsl:mode on-no-match="shallow-skip" />
+    
+    <xsl:include href="common-html.xsl" />
 
-    <xsl:param
+    <xsl:variable
         name="jQueryVersion"
         select="'3.7.1'" />
 
-    <xsl:param
+    <xsl:variable
         name="dataTablesVersion"
         select="'2.1.8'" />
-
-    <xsl:param
-        name="designsystemVersion"
-        select="'8'" />
-
-    <xsl:param
-        name="designsystemUrl"
-        select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion" />
-
-    <xsl:variable
-        name="arrowLeftIcon"
-        select="document($designsystemUrl || '/icons/arrow-left.svg')" />
 
     <xsl:variable
         name="downloadIcon"
@@ -56,30 +50,8 @@
         select="document($designsystemUrl || '/icons/license-cc.svg')" />
 
     <xsl:variable
-        name="mailIcon"
-        select="document($designsystemUrl || '/icons/mail.svg')" />
-
-    <xsl:variable
         name="lang"
         select="/gc:CodeList/Annotation/Description/dcterms:language" />
-
-    <xsl:variable
-        name="localizedMessages"
-        select="document(concat('../../resources/locale/', $lang, '.xml'))/msg:messages" />
-
-    <xsl:template name="localizedMessage">
-        <xsl:param name="id" />
-        <xsl:choose>
-            <xsl:when test="exists($localizedMessages/msg:message[@id=$id])">
-                <xsl:value-of select="string($localizedMessages/msg:message[@id=$id])" />
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:message>
-                    <xsl:value-of select="'WARNING: No message with id &#34;' || $id || '&#34; is defined for language ' || $lang || '.'" />
-                </xsl:message>
-            </xsl:otherwise>
-        </xsl:choose>
-    </xsl:template>
 
     <xsl:template match="/">
         <html>
@@ -92,7 +64,7 @@
                     name="viewport"
                     content="width=device-width, initial-scale=1.0" /><!-- Nice view, also for narrow screen devices, see https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag -->
                 <title>
-                    <xsl:value-of select="gc:CodeList/Identification/ShortName" />
+                    <xsl:value-of select="gc:CodeList/Identification/ShortName || ' v' || gc:CodeList/Identification/Version" />
                 </title>
                 <link rel="stylesheet">
                     <xsl:attribute
@@ -172,7 +144,7 @@
                         </h1>
                     </div>
                 </header>
-                <main class="ds-container ds-pt-lg ds-pb-lg">
+                <main class="ds-container ds-pt-lg ds-pb-lg"><!-- Use same classes as on other HTML pages -->
                     <div class="ds-grid-2-1">
                         <xsl:apply-templates
                             select="gc:CodeList"
@@ -189,7 +161,7 @@
                     <nav>
                         <a
                             id="button-backtofrontpage"
-                            href="../../../index.html"
+                            href="../../index.html"
                             role="button">
                             <xsl:copy-of select="$arrowLeftIcon" />
                             <xsl:call-template name="localizedMessage">
@@ -200,39 +172,7 @@
                         </a>
                     </nav>
                 </div>
-                <footer class="ds-footer">
-                    <div class="ds-container">
-                        <ds-logo-title class="transparent">
-                            <xsl:attribute name="title">
-                                <xsl:call-template name="localizedMessage">
-                                    <xsl:with-param
-                                name="id"
-                                select="'registerowner'" />
-                                </xsl:call-template>
-                            </xsl:attribute>
-                        </ds-logo-title>
-                        <hr />
-                        <p>
-                            <a
-                                href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste"
-                                target="_blank">
-                                <xsl:copy-of select="$mailIcon" />
-                                <xsl:call-template name="localizedMessage">
-                                    <xsl:with-param
-                                        name="id"
-                                        select="'registeremailmessage'" />
-                                </xsl:call-template>
-                            </a>
-                        </p>
-                        <p>
-                            <xsl:call-template name="localizedMessage">
-                                <xsl:with-param
-                                    name="id"
-                                    select="'registergdprmessage'" />
-                            </xsl:call-template>
-                        </p>
-                    </div>
-                </footer>
+                <xsl:call-template name="generateHtmlFooter" />
             </body>
         </html>
     </xsl:template>
