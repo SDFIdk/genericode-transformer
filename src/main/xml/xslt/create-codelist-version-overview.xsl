@@ -69,22 +69,7 @@
             <body>
                 <header class="ds-header">
                     <div class="ds-container">
-                        <ds-logo-title>
-                            <xsl:attribute name="title">
-                                <xsl:call-template name="localizedMessage">
-                                    <xsl:with-param
-                                name="id"
-                                select="'registername'" />
-                                </xsl:call-template>
-                            </xsl:attribute>
-                            <xsl:attribute name="byline">
-                                <xsl:call-template name="localizedMessage">
-                                    <xsl:with-param
-                                name="id"
-                                select="'registerowner'" />
-                                </xsl:call-template>
-                            </xsl:attribute>
-                        </ds-logo-title>
+                        <xsl:call-template name="generateDsLogoTitle" />
                         <h1>
                             <xsl:value-of select="$codeListName" />
                         </h1>

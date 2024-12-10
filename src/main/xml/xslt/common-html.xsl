@@ -45,6 +45,26 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
+    <!-- Prerequisite: DSLogoTitle has been imported from designsystem.js in the stylesheet that includes this stylesheet -->
+    <xsl:template name="generateDsLogoTitle">
+        <ds-logo-title>
+            <xsl:attribute name="title">
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'registername'" />
+                </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="byline">
+                <xsl:call-template name="localizedMessage">
+                    <xsl:with-param
+                        name="id"
+                        select="'registerowner'" />
+                </xsl:call-template>
+            </xsl:attribute>
+        </ds-logo-title>
+    </xsl:template>
 
     <!-- Prerequisite: DSLogoTitle has been imported from designsystem.js in the stylesheet that includes this stylesheet -->
     <xsl:template name="generateHtmlFooter">
