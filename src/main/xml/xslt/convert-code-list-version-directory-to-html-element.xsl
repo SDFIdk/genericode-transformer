@@ -27,6 +27,20 @@
         <table>
             <tbody>
                 <xsl:for-each select="c:file">
+                    <xsl:sort
+                        select="replace(@name, $regexNameWithVersion, '$2')"
+                        data-type="number"
+                        order="descending" />
+                    <!-- then sort descending on the minor part of the version -->
+                    <xsl:sort
+                        select="replace(@name, $regexNameWithVersion, '$3')"
+                        data-type="number"
+                        order="descending" />
+                    <!-- finally, sort descending on the patch part of the version -->
+                    <xsl:sort
+                        select="replace(@name, $regexNameWithVersion, '$4')"
+                        data-type="number"
+                        order="descending" />
                     <tr>
                         <td>
                             <a>

@@ -35,7 +35,7 @@
             name="path"
             select="$input-directory-urified" />
         <!-- v1.2.3.codelist.html must match,
-        index.html must not match,
+        index.html (created in earlier executions of this step) must not match,
         v1.2.3.codelist.gc must not match
          -->
         <p:with-option
@@ -45,14 +45,6 @@
             name="max-depth"
             select="'unbounded'" />
     </p:directory-list>
-
-    <p:xslt
-        name="process-directory-list"
-        message="Process directory list for the next steps: sort on version, descending">
-        <p:with-input
-            port="stylesheet"
-            href="../xslt/process-directory-list.xsl" />
-    </p:xslt>
 
     <p:store
         name="store-directory-list"
@@ -82,20 +74,33 @@
             name="overview-file-uri"
             select="p:urify($directory-uri || 'index.html')" />
 
-        <!-- In step process-directory-list,
-        it was made sure that the first file in each directory is the latest version,
-        therefore the first file is the latest version
-        (files were sorted on version, descending). -->
+        <p:variable
+            name="latest-version-html-uri"
+            select="let $regex := '^v(([0-9]+)\.([0-9]+)\.([0-9]+))\..*',
+                    $files := /c:directory/c:file,
+                    $filesSortedOnVersionAscending := sort(
+                      $files,
+                      default-collation(),
+                      function($file) {
+                        (
+                          number(replace($file/@name, $regex, '$2')),
+                          number(replace($file/@name, $regex, '$3')),
+                          number(replace($file/@name, $regex, '$4'))
+                        )
+                      }
+                    )
+                    return base-uri($filesSortedOnVersionAscending[last()])" />
+                    
         <p:variable
             name="latest-version-gc-uri"
-            select="replace(base-uri(/c:directory/c:file[1]), '.html', '.gc')" />
-
+            select="replace($latest-version-html-uri, '.html', '.gc')" />
+            
         <p:xslt
-            name="convert-codelist-directory-to-html-element"
+            name="convert-code-list-version-directory-to-html-element"
             message="Create HTML element from file names in {$directory-uri}">
             <p:with-input
                 port="stylesheet"
-                href="../xslt/convert-codelist-directory-to-html-element.xsl" />
+                href="../xslt/convert-code-list-version-directory-to-html-element.xsl" />
         </p:xslt>
 
         <p:store
@@ -123,7 +128,7 @@
             name="version-html-element"
             select="/">
             <p:pipe
-                step="convert-codelist-directory-to-html-element"
+                step="convert-code-list-version-directory-to-html-element"
                 port="result" />
         </p:variable>
 
