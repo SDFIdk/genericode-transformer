@@ -15,13 +15,21 @@
     <message id="backtofrontpage">Tilbage til register</message>
     <message id="frontpage">forsiden</message>
     
+    <!-- Front page -->
+    <message id="subregisters">Registre</message>
+    
     <!-- Code list overview page -->
+    <message id="allversions">alle versioner</message>
+    <message id="codelists">Kodelister</message>
+    <message id="latestversion">seneste version</message>
+    
+    <!-- Code list versions overview page -->
     <message id="aboutversions">Versioner af kodelister</message>
     <message id="chooseversion">Vælg version af kodeliste</message>
     <message id="codelistoverviewmanchet1">Her er versionerne af kodelisten</message>
     <message id="readaboutversions">Læs om versionering af kodelister på</message>
     
-    <!-- Headings -->
+    <!-- Code list version page -->
     <message id="data">Data</message>
     <message id="download">Download</message>
     <message id="metadata">Metadata</message>

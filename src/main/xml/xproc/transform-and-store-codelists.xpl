@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:declare-step
-    xmlns:p="http://www.w3.org/ns/xproc"
     xmlns:c="http://www.w3.org/ns/xproc-step"
     xmlns:err="http://www.w3.org/ns/xproc-error"
+    xmlns:gt="urn:uuid:dcebd429-ed94-465a-a0a0-66e47def2454"
+    xmlns:p="http://www.w3.org/ns/xproc"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="transform-and-store-codelists"
+    type="gt:transform-and-store-codelists"
     version="3.0">
-    
-    <p:documentation>This step takes a directory containing (versions of) code lists in genericode,
-        and creates the CSV and HTML encodings of each code list, in the directory that is provided as input.
-        It is assumed that the file names follow the pattern
-        v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.</p:documentation>
+
+    <p:documentation>This step takes a directory containing versions of code lists in genericode (GC),
+        in the directory itself and in its subdirectories,
+        and creates the CSV and HTML encodings of each code list version, in the directory structure that is provided as input.
+        So v1.2.3.codelist.csv and v1.2.3.codelist.html will be saved in the same directory as v1.2.3.codelist.gc is present in.
+        It is assumed that the file names follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
+    </p:documentation>
 
     <p:option name="input-directory" />
 

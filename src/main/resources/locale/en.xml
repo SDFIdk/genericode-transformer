@@ -15,12 +15,20 @@
     <message id="backtofrontpage">Tilbage til register</message>
     <message id="frontpage">the front page</message>
     
+    <!-- Front page -->
+    <message id="subregisters">Registers</message>
+    
     <!-- Code list overview page -->
+    <message id="allversions">all versions</message>
+    <message id="codelists">Code lists</message>
+    <message id="latestversion">latest version</message>
+    
+    <!-- Code list versions overview page -->
     <message id="aboutversions">Code lists versions</message>
     <message id="chooseversion">Choose code list version</message>
     <message id="readaboutversions">Read about versioning of code lists on</message>
     
-    <!-- Headings -->
+    <!-- Code list version page -->
     <message id="data">Data</message>
     <message id="download">Download</message>
     <message id="metadata">Metadata</message>

@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <p:declare-step
-    xmlns:p="http://www.w3.org/ns/xproc"
-    xmlns:err="http://www.w3.org/ns/xproc-error"
     xmlns:c="http://www.w3.org/ns/xproc-step"
     xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:err="http://www.w3.org/ns/xproc-error"
     xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/"
+    xmlns:gt="urn:uuid:dcebd429-ed94-465a-a0a0-66e47def2454"
+    xmlns:p="http://www.w3.org/ns/xproc"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="create-code-list-version-overviews"
+    type="gt:create-code-list-version-overviews"
     version="3.0">
 
-    <p:documentation>This step takes a directory containing (versions of) code lists in the different formats,
-        and creates an overview file index.html for each code list, so in the directory that is provided as input.
-        It is assumed that the file names follow the pattern
-        v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
+    <p:documentation>This step takes a directory containing versions of code lists in the different formats,
+        in the directory itself and in its subdirectories,
+        and creates an overview file index.html for each code list, in the directory structure that is provided as input.
+        It is assumed that
+        * all the versions of a specific code list are in the same folder;
+        * the file names of the code list version follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
     </p:documentation>
 
     <p:option name="input-directory" />
@@ -90,11 +94,11 @@
                       }
                     )
                     return base-uri($filesSortedOnVersionAscending[last()])" />
-                    
+
         <p:variable
             name="latest-version-gc-uri"
             select="replace($latest-version-html-uri, '.html', '.gc')" />
-            
+
         <p:xslt
             name="convert-code-list-version-directory-to-html-element"
             message="Create HTML element from file names in {$directory-uri}">
