@@ -57,6 +57,44 @@ local-scripts\create-code-list-version-overviews.bat
 > [!CAUTION]
 > Certain pipelines add files to the given directory or modify existing files. Make sure to keep a backup or to work in a directory that is under version control, so you can revert changes if needed.
 
+To generate the whole code list register site, create a batch file, e.g. `generate-code-list-register-site.bat` in folder `local-scripts` as follows
+
+```bat
+@echo off
+rem Convert all README.adoc files in this directory and its subdirectories to README.html files
+rem xhtml5 is the backend and no stylesheet is included, the output files will be further processed, including adding a stylesheet, using XSLT
+if "%~1" == "" (
+	@rem Exit this batch script with non-zero (that is, unsuccessful) error code.
+	echo Usage: %~nx0 "C:\path\to\directory\containing\files\to\convert"
+	@exit /B 1
+)
+
+echo Convert top level README file from AsciiDoc to HTML
+if exist "%~1\README.adoc" (
+	echo Converting "%~1\README.adoc"
+	call asciidoctorj -b xhtml5 -a stylesheet! -o "%~1\index.html" "%~1\README.adoc"
+)
+
+echo Convert 2nd level README files from AsciiDoc to HTML
+for /d %%i in ("%~1\*") do (
+	if exist "%%i\README.adoc" (
+		echo Converting "%%i\README.adoc"
+		call asciidoctorj -b xhtml5 -a stylesheet! -o "%%i\index.html" "%%i\README.adoc"
+	)
+)
+
+call Morgana -config=local-scripts\morgana-config.xml ^
+src\main\xml\xproc\generate-code-list-register-site.xpl ^
+-option:input-directory=%~1 ^
+-static:debug=false
+```
+
+Run `generate-code-list-register-site.bat` from the root directory of the repository:
+
+```bat
+local-scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite"
+```
+
 ## Development
 
 ### Running the tests
