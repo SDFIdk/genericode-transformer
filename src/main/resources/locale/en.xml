@@ -42,8 +42,7 @@
     <message id="description">Description</message>
     <message id="license">License</message>
     <message id="locationuri">Download URL</message>
-    <message id="provenance">Provenance</message>
-    <message id="publisher">Publisher</message>
+    <message id="provenance">Version history</message>
     <message id="shortname">Short name</message>
     <message id="source">Source</message>
     <message id="version">Version</message>

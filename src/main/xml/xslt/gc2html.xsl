@@ -254,11 +254,6 @@
                         name="element"
                         select="Annotation/Description/dcterms:available" />
                 </xsl:call-template>
-                <xsl:call-template name="outputTextMetadataElement">
-                    <xsl:with-param
-                        name="element"
-                        select="Annotation/Description/dcterms:publisher" />
-                </xsl:call-template>
             </table>
         </section>
     </xsl:template>
