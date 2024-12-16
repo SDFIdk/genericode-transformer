@@ -43,8 +43,7 @@
     <message id="description">Beskrivelse</message>
     <message id="license">Licens</message>
     <message id="locationuri">Download-URL</message>
-    <message id="provenance">Oprindelse</message>
-    <message id="publisher">Udgiver</message>
+    <message id="provenance">Versionshistorik</message>
     <message id="shortname">Kort navn</message>
     <message id="source">Kilde</message>
     <message id="version">Version</message>
