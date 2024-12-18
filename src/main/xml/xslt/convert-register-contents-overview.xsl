@@ -60,8 +60,6 @@
                 customElements.define('ds-logo-title', DSLogoTitle)
             </script>
             <style>
-                /* Custom styles */
-                #button-backtofrontpage{position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height: 44px;}
                 /* No extra top margin for the top level sections */
                 section + section, section section {margin-top: var(--space-md)}
                 .warning *{color: var(--warning);font-weight: 500}
@@ -120,23 +118,6 @@
                 </div>
             </div>
         </main>
-        <xsl:if test="$level eq 2">
-            <div class="ds-padding">
-                <nav>
-                    <a
-                        id="button-backtofrontpage"
-                        href="../index.html"
-                        role="button">
-                        <xsl:copy-of select="$arrowLeftIcon" />
-                        <xsl:call-template name="localizedMessage">
-                            <xsl:with-param
-                                name="id"
-                                select="'backtofrontpage'" />
-                        </xsl:call-template>
-                    </a>
-                </nav>
-            </div>
-        </xsl:if>
         <xsl:call-template name="generateHtmlFooter" />
     </xsl:template>
     

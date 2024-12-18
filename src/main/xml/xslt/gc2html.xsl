@@ -114,8 +114,6 @@
                     div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active{color: var(--color) !important}
                     div.dt-container .dt-input{color: var(--color);background-color: var(--background-color);}
                     /* Custom styles */
-                    #button-backtofrontpage{position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height:
-                    44px;}
                     #downloadsection a[role="button"]{width: 6rem; margin: var(--space-xs); min-width: 44px;
                     min-height: 44px;}
                 </style>
@@ -142,21 +140,6 @@
                         select="gc:CodeList"
                         mode="data" />
                 </main>
-                <div class="ds-padding">
-                    <nav>
-                        <a
-                            id="button-backtofrontpage"
-                            href="../../index.html"
-                            role="button">
-                            <xsl:copy-of select="$arrowLeftIcon" />
-                            <xsl:call-template name="localizedMessage">
-                                <xsl:with-param
-                                    name="id"
-                                    select="'backtofrontpage'" />
-                            </xsl:call-template>
-                        </a>
-                    </nav>
-                </div>
                 <xsl:call-template name="generateHtmlFooter" />
             </body>
         </html>

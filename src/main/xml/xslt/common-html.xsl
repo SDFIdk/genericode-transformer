@@ -19,10 +19,6 @@
     <xsl:variable
         name="designsystemUrl"
         select="'https://cdn.dataforsyningen.dk/assets/designsystem/v' || $designsystemVersion" />
-
-    <xsl:variable
-        name="arrowLeftIcon"
-        select="document($designsystemUrl || '/icons/arrow-left.svg')" />
         
     <xsl:variable
         name="exitSiteIcon"
