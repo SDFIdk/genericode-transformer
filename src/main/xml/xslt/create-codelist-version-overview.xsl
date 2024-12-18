@@ -61,10 +61,6 @@
                     customElements.define('ds-logo', DSLogo)
                     customElements.define('ds-logo-title', DSLogoTitle)
                 </script>
-                <style>
-                    /* Custom styles */
-                    #button-backtofrontpage{position: fixed; bottom: var(--space-md); left: var(--space); min-width: 44px; min-height: 44px;}
-                </style>
             </head>
             <body>
                 <header class="ds-header">
@@ -126,21 +122,6 @@
                         </section>
                     </div>
                 </main>
-                <div class="ds-padding">
-                    <nav>
-                        <a
-                            id="button-backtofrontpage"
-                            href="../../index.html"
-                            role="button">
-                            <xsl:copy-of select="$arrowLeftIcon" />
-                            <xsl:call-template name="localizedMessage">
-                                <xsl:with-param
-                                    name="id"
-                                    select="'backtofrontpage'" />
-                            </xsl:call-template>
-                        </a>
-                    </nav>
-                </div>
                 <xsl:call-template name="generateHtmlFooter" />
             </body>
         </html>

@@ -19,10 +19,9 @@
     <p:option name="input-directory" />
 
     <p:option
-        name="overwrite-existing-files"
+        name="overwrite-existing-alternative-formats"
         as="xsd:boolean"
-        select="false()"
-        static="true" />
+        select="false()" />
 
     <p:option
         name="debug"
@@ -74,7 +73,8 @@
 
         <p:load
             name="load-gc"
-            href="{$base-uri-gc}" />
+            href="{$base-uri-gc}"
+            content-type="application/xml" />
 
         <p:variable
             name="base-uri-csv"
@@ -89,7 +89,7 @@
         </p:variable>
 
         <p:choose>
-            <p:when test="$overwrite-existing-files or not($csv-exists)">
+            <p:when test="$overwrite-existing-alternative-formats or not($csv-exists)">
                 <p:xslt
                     name="gc2csv"
                     message="Transform {$base-uri-gc} to CSV">
@@ -126,7 +126,7 @@
         </p:variable>
 
         <p:choose>
-            <p:when test="$overwrite-existing-files or not($html-exists)">
+            <p:when test="$overwrite-existing-alternative-formats or not($html-exists)">
                 <p:xslt
                     name="gc2html"
                     message="Transform {$base-uri-gc} to HTML">

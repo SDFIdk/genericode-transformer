@@ -24,13 +24,17 @@
     <p:import href="update-front-page.xpl" />
 
     <p:option name="input-directory" />
+    
+    <p:option
+        name="overwrite-existing-alternative-formats"
+        as="xsd:boolean"
+        select="false()" />
 
     <p:option
         name="debug"
         as="xsd:boolean"
         select="false()"
         static="true" />
-        
 
     <p:variable
         name="input-directory-urified"
@@ -42,6 +46,9 @@
         <p:with-option
             name="input-directory"
             select="$input-directory" />
+        <p:with-option
+            name="overwrite-existing-alternative-formats"
+            select="$overwrite-existing-alternative-formats" />
     </gt:transform-and-store-codelists>
 
     <gt:create-code-list-version-overviews

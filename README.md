@@ -8,91 +8,49 @@
 
 [^1]: Source: [Genericode Approved as an OASIS Standard](https://www.oasis-open.org/2023/02/01/genericode-approved-as-an-oasis-standard/)
 
+### XProc
+
+[Xproc](https://xproc.org/) is an XML based programming language for processing documents in pipelines. XProc 3 is developed by the [XProc Next Community Group](https://www.w3.org/community/xproc-next/), a community group of the [World Wide Web Consortium (W3C)](https://www.w3.org/).
+
 ## Installation
 
-This tool relies on the presence of Java, an XProc 3 processor and the XSLT processor Saxon. The instructions here are given for XProc 3 processor Morgana.
+This tool relies on the presence of Java, an XProc 3 processor, the XSLT processor Saxon and AsciidoctorJ. The instructions here are given for XProc 3 processor Morgana.
 
 - Clone the repository on your local machine, no releases are available at the moment.
-- Ensure you have a Java 8 or Java 11 installation.
+- Ensure you have a Java 11 installation.
 - Download and install [Morgana](https://www.xml-project.com/morganaxproc-iiise.html), add the path to the folder where you installed Morgana to your user's _Path_ environment variable.
 - Download the latest version of the [XSLT processor Saxon](https://repo1.maven.org/maven2/net/sf/saxon/Saxon-HE/) and place the jar file Saxon-HE-x.y.jar in the MorganaXProc-IIIse\MorganaXProc-IIIse_lib folder.
+- Download and install [AsciidoctorJ](https://github.com/asciidoctor/asciidoctorj), add the path to the folder where you installed AsciidoctorJ to your user's _Path_ environment variable.
 
 ## Usage
-
-On Windows and using Saxon, an XSLT transformation can be executed with the following command, where `SAXON_CP` is set to the location of the Saxon jar file (the one downloaded earlier or the one of your local Saxon command line installation):
-
-```bat
-%JAVA_HOME%\bin\java.exe -cp %SAXON_CP% net.sf.saxon.Transform -s:path\to\input.gc -xsl:path\to\gc2<format>.xsl -o:path\to\output.<format>
-```
-
-On Windows and using Morgana, a pipeline written in [XProc](https://xproc.org/) can be executed.
-
-Create a file morgana-config.xml file in folder `local-scripts`. Adjust the value of element `xslt-connector` to match the value specified for your version of Saxon as specified in https://www.xml-project.com/manual/ch02.html#configuration_s1_1_s2_2, and make sure to add a media type mapping for genericode files (*.gc), see https://www.xml-project.com/manual/ch02.html#configuration_s1_5.
-
-```xml
-<morgana-config xmlns="http://www.xml-project.com/morganaxproc">	
-	<!-- See "Selecting the XSLTConnector" on https://www.xml-project.com/manual/ch02.html#configuration_s1_1_s2_2 -->
-	<XSLTValidationMode>LAX</XSLTValidationMode>
-	<xslt-connector>saxon12-3</xslt-connector>
-    
-	<mediatype-mapping>
-		<map file-extension="gc" media-type="application/xml" />
-	</mediatype-mapping>	
-    
-</morgana-config>
-```
-
-Create a batch file, e.g. `create-code-list-version-overviews.bat` in folder `local-scripts` as follows, adjust the paths to the input and output:
-
-```bat
-Morgana -config=local-scripts\morgana-config.xml src\main\xml\xproc\create-code-list-version-overviews.xpl -option:input-directory=C:\path\to\directory -static:debug=false"
-```
-
-Run `create-code-list-version-overviews.bat` from the root directory of the repository:
-
-```bat
-local-scripts\create-code-list-version-overviews.bat
-```
 
 > [!CAUTION]
 > Certain pipelines add files to the given directory or modify existing files. Make sure to keep a backup or to work in a directory that is under version control, so you can revert changes if needed.
 
-To generate the whole code list register site, create a batch file, e.g. `generate-code-list-register-site.bat` in folder `local-scripts` as follows
+On Windows and using Morgana, a pipeline written in [XProc](https://xproc.org/) can be executed.
+
+To generate the whole code list register site, run batch file `generate-code-list-register-site.bat` in folder `scripts`from the root directory of the repository:
 
 ```bat
-@echo off
-rem Convert all README.adoc files in this directory and its subdirectories to README.html files
-rem xhtml5 is the backend and no stylesheet is included, the output files will be further processed, including adding a stylesheet, using XSLT
-if "%~1" == "" (
-	@rem Exit this batch script with non-zero (that is, unsuccessful) error code.
-	echo Usage: %~nx0 "C:\path\to\directory\containing\files\to\convert"
-	@exit /B 1
-)
-
-echo Convert top level README file from AsciiDoc to HTML
-if exist "%~1\README.adoc" (
-	echo Converting "%~1\README.adoc"
-	call asciidoctorj -b xhtml5 -a stylesheet! -o "%~1\index.html" "%~1\README.adoc"
-)
-
-echo Convert 2nd level README files from AsciiDoc to HTML
-for /d %%i in ("%~1\*") do (
-	if exist "%%i\README.adoc" (
-		echo Converting "%%i\README.adoc"
-		call asciidoctorj -b xhtml5 -a stylesheet! -o "%%i\index.html" "%%i\README.adoc"
-	)
-)
-
-call Morgana -config=local-scripts\morgana-config.xml ^
-src\main\xml\xproc\generate-code-list-register-site.xpl ^
--option:input-directory=%~1 ^
--static:debug=false
+scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite"
 ```
 
-Run `generate-code-list-register-site.bat` from the root directory of the repository:
+or, if you want to overwrite existing CSV and HTML encodings of the code list versions:
 
 ```bat
-local-scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite"
+scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite" true
+```
+
+Run the batch file without arguments to see all the options:
+
+```bat
+scripts\generate-code-list-register-site.bat
+```
+
+On Windows and using Saxon, a single XSLT transformation can be executed with the following command, where `SAXON_CP` is set to the location of the Saxon jar file (the one downloaded earlier or the one of your local Saxon command line installation):
+
+```bat
+%JAVA_HOME%\bin\java.exe -cp %SAXON_CP% net.sf.saxon.Transform -s:path\to\input.gc -xsl:path\to\gc2<format>.xsl -o:path\to\output.<format>
 ```
 
 ## Development

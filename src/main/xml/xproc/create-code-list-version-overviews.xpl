@@ -118,7 +118,8 @@
         <p:load
             name="load-latest-version"
             message="Load latest code list version to retrieve certain metadata elements to be included in the overview page: {$latest-version-gc-uri}"
-            href="{$latest-version-gc-uri}" />
+            href="{$latest-version-gc-uri}"
+            content-type="application/xml" />
 
         <p:variable
             name="lang-latest-version"
