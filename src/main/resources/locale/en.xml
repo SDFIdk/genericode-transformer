@@ -6,8 +6,9 @@
     xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
     
     <!-- Register metadata -->
-    <message id="registeremailmessage">Email us for code list enquiries</message>
+    <message id="registeremailmessage">Send an email with an enquiry about the code list register itself</message>
     <message id="registergdprmessage">Note: If you send us an email, the information will be registered in our centralised digital system for further processing.</message>
+    <message id="registerscopemessage">Note: Enquiries about the individual code lists have to be directed to the respective register owners.</message>
     <message id="registername">Code list register</message>
     <message id="registerowner">Agency for Climate Data</message>
     

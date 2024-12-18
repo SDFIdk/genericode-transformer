@@ -6,8 +6,9 @@
     xsi:schemaLocation="urn:uuid:74875954-5193-4fb8-ba48-9944e9a36c80 ../../xml/schemas/xsd/message-catalog.xsd ">
     
     <!-- Register metadata -->
-    <message id="registeremailmessage">Send en e-mail til os for henvendelser om kodelister</message>
+    <message id="registeremailmessage">Send en e-mail med en henvendelse om selve kodelisteregistret</message>
     <message id="registergdprmessage">Bemærk: Sender du os en e-mail, vil oplysningerne blive registreret i vores centrale, digitale system til videre sagsbehandling.</message>
+    <message id="registerscopemessage">Bemærk: Henvendelser om de enkelte kodelister skal rettes til de respektive registerejere.</message>
     <message id="registername">Kodelisteregister</message>
     <message id="registerowner">Klimadatastyrelsen</message>
     

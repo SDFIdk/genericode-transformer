@@ -64,7 +64,7 @@
                 <hr />
                 <p>
                     <a
-                        href="mailto:kodeliste@kds.dk?subject=Angående%20kodeliste"
+                        href="mailto:kodeliste@kds.dk"
                         target="_blank">
                         <xsl:copy-of select="$mailIcon" />
                         <xsl:call-template name="localizedMessage">
@@ -73,6 +73,13 @@
                                 select="'registeremailmessage'" />
                         </xsl:call-template>
                     </a>
+                </p>
+                <p>
+                    <xsl:call-template name="localizedMessage">
+                        <xsl:with-param
+                            name="id"
+                            select="'registerscopemessage'" />
+                    </xsl:call-template>
                 </p>
                 <p>
                     <xsl:call-template name="localizedMessage">
