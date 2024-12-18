@@ -9,10 +9,6 @@
         select="xsd:date('2024-08-16')" />
         
     <x:param
-        name="publisher"
-        select="'Udgiver'" />
-        
-    <x:param
         name="location"
         select="'https://sti/til/'" />
         

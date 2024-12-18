@@ -22,24 +22,17 @@
         as="xsd:date" />
 
     <xsl:param
-        name="publisher"
-        required="true" />
-
-    <xsl:param
         name="location"
         required="true" />
 
     <xsl:template match="gc:CodeList/Annotation/Description">
         <Description>
             <xsl:apply-templates select="@*" />
-            <!-- Overwrite dcterms:available and dcterms:publisher if they are present -->
-            <xsl:apply-templates select="*[name() ne 'dcterms:available' and name() ne 'dcterms:publisher']" />
+            <!-- Overwrite dcterms:available if it is present -->
+            <xsl:apply-templates select="*[name() ne 'dcterms:available']" />
             <dcterms:available>
                 <xsl:value-of select="$publicationDate" />
             </dcterms:available>
-            <dcterms:publisher>
-                <xsl:value-of select="$publisher" />
-            </dcterms:publisher>
         </Description>
     </xsl:template>
 
