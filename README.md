@@ -14,15 +14,37 @@
 
 ## Installation
 
-This tool relies on the presence of Java, an XProc 3 processor, the XSLT processor Saxon and AsciidoctorJ. The instructions here are given for XProc 3 processor Morgana.
+The installation instructions assume that the installation is done on a Windows computer.
 
-- Clone the repository on your local machine, no releases are available at the moment.
-- Ensure you have a Java 11 installation.
-- Download and install [Morgana](https://www.xml-project.com/morganaxproc-iiise.html), add the path to the folder where you installed Morgana to your user's _Path_ environment variable.
-- Download the latest version of the [XSLT processor Saxon](https://repo1.maven.org/maven2/net/sf/saxon/Saxon-HE/) and place the jar file Saxon-HE-x.y.jar in the MorganaXProc-IIIse\MorganaXProc-IIIse_lib folder.
-- Download and install [AsciidoctorJ](https://github.com/asciidoctor/asciidoctorj), add the path to the folder where you installed AsciidoctorJ to your user's _Path_ environment variable.
+- genericode-transformer: clone this repository on your local machine (no releases are available at the moment);
+- Java:
+  - Ensure you have a Java 11 (or later) installation;
+  - Ensure that environment variable `JAVA_HOME` is set and points to that Java installation;
+- Saxon:
+  - Download and unzip the XSLT 3 processor [Saxon](https://github.com/Saxonica/Saxon-HE/releases/latest) into a suitable directory;
+  - Set environment variable `SAXON_CP` to the location of the principal Saxon jar file, saxon-he-x.y.jar;
+- Morgana:
+  - Download and unzip the XProc 3 processor [Morgana](https://www.xml-project.com/morganaxproc-iiise.html) into a suitable directory;
+  - Add the path to that directory to your user's _Path_ environment variable;
+  - Place a _copy_ of jar file saxon-he-x.y.jar in the MorganaXProc-IIIse\MorganaXProc-IIIse_lib folder.
+- AsciidoctorJ:
+  - Download and unzip [AsciidoctorJ](https://github.com/asciidoctor/asciidoctorj) into a suitable directory;
+  - Add the path to that directory to your user's _Path_ environment variable.
 
 ## Usage
+
+The usage instructions assume that the application is used on a Windows computer.
+
+### Adding/updating a single codelist's publication details
+
+To update the publication details of a genericode code list, run batch file `update-publication-details.bat` in folder `scripts` from the _root directory_ of the working tree of your local repository:
+
+```bat
+scripts\update-publication-details.bat "C:\path\to\codelist.gc" https://example.org/codelistregister/subregister/
+```
+
+> [!CAUTION]
+> The application invoked by the batch file modifies the file given as the first argunment. Make sure to keep a backup or to work in a directory that is under version control, so you can undo the changes if needed.
 
 ### Generating a code list register site
 
@@ -45,14 +67,6 @@ Run the batch file without arguments to see all the options:
 
 ```bat
 scripts\generate-code-list-register-site.bat
-```
-
-### Executing XSLT transformations
-
-On Windows and using Saxon, a single XSLT transformation can be executed with the following command, where `SAXON_CP` is set to the location of the Saxon jar file (the one downloaded earlier or the one of your local Saxon command line installation):
-
-```bat
-%JAVA_HOME%\bin\java.exe -cp %SAXON_CP% net.sf.saxon.Transform -s:path\to\input.gc -xsl:path\to\gc2<format>.xsl -o:path\to\output.<format>
 ```
 
 ## Development
