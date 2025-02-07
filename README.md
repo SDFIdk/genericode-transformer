@@ -24,18 +24,18 @@ This tool relies on the presence of Java, an XProc 3 processor, the XSLT process
 
 ## Usage
 
-> [!CAUTION]
-> Certain pipelines add files to the given directory or modify existing files. Make sure to keep a backup or to work in a directory that is under version control, so you can revert changes if needed.
+### Generating a code list register site
 
-On Windows and using Morgana, a pipeline written in [XProc](https://xproc.org/) can be executed.
-
-To generate the whole code list register site, run batch file `generate-code-list-register-site.bat` in folder `scripts`from the root directory of the repository:
+To generate a whole code list register site, run batch file `generate-code-list-register-site.bat` in folder `scripts`from the _root directory_ of the working tree of your local repository:
 
 ```bat
 scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite"
 ```
 
-or, if you want to overwrite existing CSV and HTML encodings of the code list versions:
+> [!CAUTION]
+> The applications invoked by the batch file add files to the given directory and/or modify existing files. Make sure to keep a backup or to work in a directory that is under version control, so you can undo the changes if needed.
+
+If you want to overwrite existing CSV and HTML encodings of the code list versions, invoke the batch file as follows:
 
 ```bat
 scripts\generate-code-list-register-site.bat "C:\path\to\directory\containing\working\copy\of\codelistregistersite" true
@@ -46,6 +46,8 @@ Run the batch file without arguments to see all the options:
 ```bat
 scripts\generate-code-list-register-site.bat
 ```
+
+### Executing XSLT transformations
 
 On Windows and using Saxon, a single XSLT transformation can be executed with the following command, where `SAXON_CP` is set to the location of the Saxon jar file (the one downloaded earlier or the one of your local Saxon command line installation):
 
@@ -59,7 +61,7 @@ On Windows and using Saxon, a single XSLT transformation can be executed with th
 
 The XSLT stylesheets are tested using [XSpec](https://github.com/xspec/xspec/), a unit test and behaviour-driven development (BDD) framework for XSLT, XQuery, and Schematron.
 
-On Windows, the XSpec XSLT tests can be run using the batch files in the [scripts folder](/scripts). Run the batch files from the root directory of the repository, for instance:
+On Windows, the XSpec XSLT tests can be run using the batch files in the [scripts folder](/scripts). Run the batch files from the _root directory_ of the working tree of your local repository, for instance:
 
 ```bat
 scripts\run-xslt-tests.bat

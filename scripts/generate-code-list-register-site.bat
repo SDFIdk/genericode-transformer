@@ -61,6 +61,8 @@ if exist "%~1\README.adoc" (
 	-option:overwrite-existing-alternative-formats=%overwrite_existing_alternative_formats% ^
 	-static:debug=%debug_pipeline%
 	
+	echo Exit code: %ERRORLEVEL%
+	
 	exit /B %ERRORLEVEL%
 ) else (
 	echo "%~1\README.adoc" does not exist, did you specify the correct directory?

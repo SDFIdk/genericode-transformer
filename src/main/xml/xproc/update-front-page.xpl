@@ -16,10 +16,13 @@
         and updates that file:
         * an overview of the subregisters present is added (based on the directory structure and the title of index.html of the subregister);
         * styling is added.
+        
         It is assumed that
         * the top level directory represent the code list register overall;
         * the second level directories represent subregisters;
-        * an index.html file has been generated already in the top level directory before calling this step (e.g. by AsciiDoctor)
+        * an index.html file has been generated already in the top level directory before calling this step (e.g. by AsciiDoctor).
+        
+        This step has neither input nor output ports. It reads from and writes to a file system.
     </p:documentation>
 
     <p:option name="input-directory" />
@@ -36,7 +39,7 @@
 
     <p:directory-list
         name="create-directory-list"
-        message="Create directory list for {$input-directory}">
+        message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />

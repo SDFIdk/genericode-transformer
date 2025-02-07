@@ -15,9 +15,13 @@
     <p:documentation>This step takes a directory containing versions of code lists in the different formats,
         in the directory itself and in its subdirectories,
         and creates an overview file index.html for each code list, in the directory structure that is provided as input.
+        
         It is assumed that
         * all the versions of a specific code list are in the same folder;
+        * the HTML encodings of the code list versions have been created already;
         * the file names of the code list version follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
+        
+        This step has neither input nor output ports. It reads from and writes to a file system.
     </p:documentation>
 
     <p:option name="input-directory" />
@@ -34,7 +38,7 @@
 
     <p:directory-list
         name="create-directory-list"
-        message="Create directory list for {$input-directory}">
+        message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />

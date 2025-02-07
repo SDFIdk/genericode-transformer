@@ -14,6 +14,8 @@
         and creates the CSV and HTML encodings of each code list version, in the directory structure that is provided as input.
         So v1.2.3.codelist.csv and v1.2.3.codelist.html will be saved in the same directory as v1.2.3.codelist.gc is present in.
         It is assumed that the file names follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
+        
+        This step has neither input nor output ports. It reads from and writes to a file system.
     </p:documentation>
 
     <p:option name="input-directory" />
@@ -35,7 +37,7 @@
 
     <p:directory-list
         name="create-directory-list"
-        message="Create directory list for {$input-directory}">
+        message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />
@@ -73,6 +75,7 @@
 
         <p:load
             name="load-gc"
+            message="Load {$gc-name} from {$base-uri-gc}"
             href="{$base-uri-gc}"
             content-type="application/xml" />
 
@@ -109,7 +112,7 @@
                     href="{$base-uri-csv}" />
             </p:when>
             <p:otherwise>
-                <p:identity message="Do not transform {$base-uri-gc} to CSV as {$base-uri-csv} already exists" />
+                <p:identity message="Do not transform {$gc-name} to CSV as {$base-uri-csv} already exists" />
             </p:otherwise>
         </p:choose>
 
@@ -146,7 +149,7 @@
                     href="{$base-uri-html}" />
             </p:when>
             <p:otherwise>
-                <p:identity message="Do not transform {$base-uri-gc} to HTML as {$base-uri-html} already exists" />
+                <p:identity message="Do not transform {$gc-name} to HTML as {$base-uri-html} already exists" />
             </p:otherwise>
         </p:choose>
     </p:for-each>
