@@ -17,9 +17,9 @@
         <Version>1.0.0</Version>
         <CanonicalUri>urn:uuid:1d4ed807-4372-44b8-8f19-892de1ef8ee1</CanonicalUri>
         <CanonicalVersionUri>urn:uuid:3c4afaae-0527-4cbb-84ea-ffa13866b431</CanonicalVersionUri>
-        <LocationUri>https://sti/til/v1.0.0.kortnavn.gc</LocationUri>
-        <AlternateFormatLocationUri MimeType="text/csv">https://sti/til/v1.0.0.kortnavn.csv</AlternateFormatLocationUri>
-        <AlternateFormatLocationUri MimeType="text/html">https://sti/til/v1.0.0.kortnavn.html</AlternateFormatLocationUri>
+        <LocationUri>https://example.org/codelistregister/subregister/kortnavn/v1.0.0.kortnavn.gc</LocationUri>
+        <AlternateFormatLocationUri MimeType="text/csv">https://example.org/codelistregister/subregister/kortnavn/v1.0.0.kortnavn.csv</AlternateFormatLocationUri>
+        <AlternateFormatLocationUri MimeType="text/html">https://example.org/codelistregister/subregister/kortnavn/v1.0.0.kortnavn.html</AlternateFormatLocationUri>
         <Agency>
             <LongName>Organisation</LongName>
         </Agency>

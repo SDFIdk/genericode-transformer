@@ -8,7 +8,7 @@
     exclude-result-prefixes="xsd">
     
     <!-- 
-    Stylesheet that adds/replaces the publication information to/of a genericode file.
+    Stylesheet that adds/updates the publication information to/of a genericode file.
     -->
 
     <xsl:output indent="yes" />
@@ -21,8 +21,10 @@
         select="xsd:date(format-date(current-date(), '[Y0001]-[M01]-[D01]'))"
         as="xsd:date" />
 
+    <!-- E.g. https://example.org/codelistregister/subregister/ -->
     <xsl:param
-        name="location"
+        name="codeListSubregisterUri"
+        as="xsd:anyURI"
         required="true" />
 
     <xsl:template match="gc:CodeList/Annotation/Description">
@@ -67,7 +69,7 @@
     <xsl:template name="constructLocationFormat">
         <!-- File extension, without dot at the start -->
         <xsl:param name="fileExtension" />
-        <xsl:value-of select="$location || 'v' || Version || '.' || ShortName || '.' || $fileExtension" />
+        <xsl:value-of select="(if (ends-with($codeListSubregisterUri, '/')) then $codeListSubregisterUri else $codeListSubregisterUri || '/') || ShortName || '/v' || Version || '.' || ShortName || '.' || $fileExtension" />
     </xsl:template>
 
 </xsl:stylesheet>

@@ -8,10 +8,10 @@
         name="publicationDate"
         select="xsd:date('2024-08-16')" />
         
-    <!-- Trailing slash -->
+    <!-- No trailing slash -->
     <x:param
         name="codeListSubregisterUri"
-        select="'https://example.org/codelistregister/subregister/'" />
+        select="'https://example.org/codelistregister/subregister'" />
         
     <!-- strip-space=yes,
     see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
