@@ -16,10 +16,14 @@
         and updates the overview file index.html in each subdirectory:
         * an overview of the code lists present is added (based on the directory structure);
         * styling is added.
+        
         It is assumed that
         * the top level directory represent the code list register overall;
         * the second level directories represent subregisters containing code lists;
-        * index.html files have been generated already in the subdirectories before calling this step (e.g. by AsciiDoctorj)
+        * the HTML encodings of the code list versions have been created already;
+        * index.html files have been generated already in the subdirectories before calling this step (e.g. by AsciiDoctorj).
+        
+        This step has neither input nor output ports. It reads from and writes to a file system.
     </p:documentation>
 
     <p:option name="input-directory" />
@@ -36,7 +40,7 @@
 
     <p:directory-list
         name="create-directory-list"
-        message="Create directory list for {$input-directory}">
+        message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />

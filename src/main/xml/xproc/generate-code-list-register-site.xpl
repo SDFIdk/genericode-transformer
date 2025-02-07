@@ -8,11 +8,12 @@
     type="gt:generate-code-list-register-site"
     version="3.0">
 
-    <p:documentation>This step takes a directory represent a code list register and generates a site for it.
+    <p:documentation>This step takes a directory representing a code list register and generates a site for it.
+    
         It is assumed that the directory that has the following structure:
         * the top-level directory contains files index.html, README.adoc and a directory for each subregister;
         * the 2nd level directories contain files index.html, README.adoc and a directory for each code list;
-        * the 3rd level directories contain a file for each version of a code lists, following pattern v1.2.3.codelist.gc,
+        * the 3rd level directories contain a file for each version of a code lists, following pattern v1.2.3.codelist.gc.
 
         The 3rd
         level directories possibly also contain files index.html, v1.2.3.codelist.csv and v1.2.3.codelist.html, if the site has been generated earlier.
@@ -51,25 +52,38 @@
             select="$overwrite-existing-alternative-formats" />
     </gt:transform-and-store-codelists>
 
+    <!-- This step assumes that the HTML encodings of all code lists have been created already.
+    Therefore, an explicit dependency on the step creating those HTML encodings is added. -->
     <gt:create-code-list-version-overviews
         name="create-code-list-version-overviews"
-        p:message="Create code list version overviews">
+        p:message="Create code list version overviews"
+        p:depends="transform-and-store-codelists">
         <p:with-option
             name="input-directory"
             select="$input-directory" />
     </gt:create-code-list-version-overviews>
 
+    <!-- This step assumes that the HTML encodings of all code lists have been created already.
+    Therefore, as a minimum an explicit dependency on the step creating those HTML encodings has to be present.
+    However, to enforce a sequential execution of the steps (as opposed to a parallel execution),
+    this step has an explicit dependency on the previous step. This will make the XProc processor output
+    easier to read for the user. -->
     <gt:update-subregister-front-pages
         name="update-subregister-front-pages"
-        p:message="Update subregister front pages">
+        p:message="Update subregister front pages"
+        p:depends="create-code-list-version-overviews">
         <p:with-option
             name="input-directory"
             select="$input-directory" />
     </gt:update-subregister-front-pages>
 
+    <!-- This step reads the index.html files in the subregisters. Those files are updated
+    in the previous step.
+    Therefore, this step has an explicit dependency on the previous step. -->
     <gt:update-front-page
         name="update-front-page"
-        p:message="Update code list register front page">
+        p:message="Update code list register front page"
+        p:depends="update-subregister-front-pages">
         <p:with-option
             name="input-directory"
             select="$input-directory" />
