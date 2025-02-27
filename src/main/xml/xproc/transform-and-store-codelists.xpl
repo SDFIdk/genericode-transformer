@@ -10,13 +10,19 @@
     version="3.0">
 
     <p:documentation>This step takes a directory containing versions of code lists in genericode (GC),
-        in the directory itself and in its subdirectories,
+        in the directory itself and in its
+        subdirectories,
         and creates the CSV and HTML encodings of each code list version, in the directory structure that is provided as input.
-        So v1.2.3.codelist.csv and v1.2.3.codelist.html will be saved in the same directory as v1.2.3.codelist.gc is present in.
-        It is assumed that the file names follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
-        
-        This step has neither input nor output ports. It reads from and writes to a file system.
+        So
+        v1.2.3.codelist.csv and v1.2.3.codelist.html will be saved in the same directory as v1.2.3.codelist.gc is present in.
+        It is assumed that the
+        file names follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
+
+        This step has neither input nor output ports. It reads from and
+        writes to a file system.
     </p:documentation>
+
+    <p:import href="directory-list-absolute-uris.xpl" />
 
     <p:option name="input-directory" />
 
@@ -35,9 +41,9 @@
         name="input-directory-urified"
         select="p:urify($input-directory)" />
 
-    <p:directory-list
+    <gt:directory-list-absolute-uris
         name="create-directory-list"
-        message="Produce list of contents of {$input-directory}">
+        p:message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />
@@ -52,7 +58,7 @@
         <p:with-option
             name="max-depth"
             select="'unbounded'" />
-    </p:directory-list>
+    </gt:directory-list-absolute-uris>
 
     <p:store
         name="store-directory-list"

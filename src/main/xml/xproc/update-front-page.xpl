@@ -24,6 +24,8 @@
         
         This step has neither input nor output ports. It reads from and writes to a file system.
     </p:documentation>
+    
+    <p:import href="directory-list-absolute-uris.xpl" />
 
     <p:option name="input-directory" />
 
@@ -37,9 +39,9 @@
         name="input-directory-urified"
         select="p:urify($input-directory)" />
 
-    <p:directory-list
+    <gt:directory-list-absolute-uris
         name="create-directory-list"
-        message="Produce list of contents of {$input-directory}">
+        p:message="Produce list of contents of {$input-directory}">
         <p:with-option
             name="path"
             select="$input-directory-urified" />
@@ -49,7 +51,7 @@
         <p:with-option
             name="max-depth"
             select="'2'" />
-    </p:directory-list>
+    </gt:directory-list-absolute-uris>
 
     <p:store
         name="store-directory-list"
