@@ -50,7 +50,7 @@
          -->
         <p:with-option
             name="include-filter"
-            select="'v[0-9]+\.[0-9]+\.[0-9]+\..*\.html'" />
+            select="'v[0-9]+\.[0-9]+\.[0-9]+\.[^/]+\.html'" />
         <p:with-option
             name="max-depth"
             select="'unbounded'" />
