@@ -6,7 +6,7 @@
 
     <x:param
         name="publicationDate"
-        select="xsd:date('2024-08-16')" />
+        select="'2024-08-16'" />
         
     <!-- Trailing slash -->
     <x:param
