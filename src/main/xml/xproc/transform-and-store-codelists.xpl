@@ -79,12 +79,6 @@
             name="base-uri-gc"
             select="base-uri(/c:file)" />
 
-        <p:load
-            name="load-gc"
-            message="Load {$gc-name} from {$base-uri-gc}"
-            href="{$base-uri-gc}"
-            content-type="application/xml" />
-
         <p:variable
             name="base-uri-csv"
             select="replace($base-uri-gc, '.gc', '.csv')" />
@@ -96,31 +90,6 @@
                 step="create-directory-list"
                 port="result" />
         </p:variable>
-
-        <p:choose>
-            <p:when test="$overwrite-existing-alternative-formats or not($csv-exists)">
-                <p:xslt
-                    name="gc2csv"
-                    message="Transform {$base-uri-gc} to CSV">
-                    <p:with-input port="source">
-                        <p:pipe
-                            step="load-gc"
-                            port="result" />
-                    </p:with-input>
-                    <p:with-input
-                        port="stylesheet"
-                        href="../xslt/gc2csv.xsl" />
-                </p:xslt>
-
-                <p:store
-                    name="store-csv"
-                    message="Store CSV code list in {$base-uri-csv}"
-                    href="{$base-uri-csv}" />
-            </p:when>
-            <p:otherwise>
-                <p:identity message="Do not transform {$gc-name} to CSV as {$base-uri-csv} already exists" />
-            </p:otherwise>
-        </p:choose>
 
         <p:variable
             name="base-uri-html"
@@ -135,28 +104,70 @@
         </p:variable>
 
         <p:choose>
-            <p:when test="$overwrite-existing-alternative-formats or not($html-exists)">
-                <p:xslt
-                    name="gc2html"
-                    message="Transform {$base-uri-gc} to HTML">
-                    <p:with-input port="source">
-                        <p:pipe
-                            step="load-gc"
-                            port="result" />
-                    </p:with-input>
-                    <p:with-input
-                        port="stylesheet"
-                        href="../xslt/gc2html.xsl" />
-                </p:xslt>
+            <!-- Only load the genericode file when it is actually needed to transform it into other formats,
+            as loading files from disk can be expensive. -->
+            <p:when test="$overwrite-existing-alternative-formats or not($csv-exists) or not($html-exists)">
+                <p:load
+                    name="load-gc"
+                    message="Load {$gc-name} from {$base-uri-gc}"
+                    href="{$base-uri-gc}"
+                    content-type="application/xml" />
+                    
+                <p:choose>
+                    <p:when test="$overwrite-existing-alternative-formats or not($csv-exists)">
+                        <p:xslt
+                            name="gc2csv"
+                            message="Transform {$base-uri-gc} to CSV">
+                            <p:with-input port="source">
+                                <p:pipe
+                                    step="load-gc"
+                                    port="result" />
+                            </p:with-input>
+                            <p:with-input
+                                port="stylesheet"
+                                href="../xslt/gc2csv.xsl" />
+                        </p:xslt>
 
-                <p:store
-                    name="store-html"
-                    message="Store HTML code list in {$base-uri-html}"
-                    href="{$base-uri-html}" />
+                        <p:store
+                            name="store-csv"
+                            message="Store CSV code list in {$base-uri-csv}"
+                            href="{$base-uri-csv}" />
+                    </p:when>
+                    <p:otherwise>
+                        <p:identity message="Do not transform {$gc-name} to CSV as {$base-uri-csv} already exists" />
+                    </p:otherwise>
+                </p:choose>
+
+                <p:choose>
+                    <p:when test="$overwrite-existing-alternative-formats or not($html-exists)">
+                        <p:xslt
+                            name="gc2html"
+                            message="Transform {$base-uri-gc} to HTML">
+                            <p:with-input port="source">
+                                <p:pipe
+                                    step="load-gc"
+                                    port="result" />
+                            </p:with-input>
+                            <p:with-input
+                                port="stylesheet"
+                                href="../xslt/gc2html.xsl" />
+                        </p:xslt>
+
+                        <p:store
+                            name="store-html"
+                            message="Store HTML code list in {$base-uri-html}"
+                            href="{$base-uri-html}" />
+                    </p:when>
+                    <p:otherwise>
+                        <p:identity message="Do not transform {$gc-name} to HTML as {$base-uri-html} already exists" />
+                    </p:otherwise>
+                </p:choose>
+
             </p:when>
             <p:otherwise>
-                <p:identity message="Do not transform {$gc-name} to HTML as {$base-uri-html} already exists" />
+                <p:identity message="Skip {$base-uri-gc}" />
             </p:otherwise>
+
         </p:choose>
     </p:for-each>
 
