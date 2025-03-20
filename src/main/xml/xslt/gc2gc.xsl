@@ -18,8 +18,8 @@
 
     <xsl:param
         name="publicationDate"
-        select="xsd:date(format-date(current-date(), '[Y0001]-[M01]-[D01]'))"
-        as="xsd:date" />
+        select="format-date(current-date(), '[Y0001]-[M01]-[D01]')"
+        as="xsd:string" />
 
     <!-- E.g. https://example.org/codelistregister/subregister/ -->
     <xsl:param
