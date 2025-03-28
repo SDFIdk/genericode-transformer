@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+	xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    stylesheet="../../../main/xml/xslt/html2atom.xsl"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    run-as="external">
+    
+    <!-- run-as="external" must be present on x:description,
+    otherwise the following error will occur:
+    XPDY0002  Finding root of tree: the context item is absent
+    In the error message, the variable lang will be mentioned.
+    See also https://www.oxygenxml.com/forum/common-problems/topic24076.html
+    and https://github.com/xspec/xspec/wiki/External-Transformation -->
+    
+    <x:param
+        name="codeListSubregisterUri"
+        select="'https://example.org/codelistregister/myregister/'" />
+        
+    <x:param
+        name="updatedFormattedDateTime"
+        select="'2025-06-03T12:00:00Z'" />
+
+    <!-- strip-space=yes,
+    see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
+    <x:scenario label="When index.html (with correctly set metadata elements) is transformed to an Atom feed">
+        <x:context href="../data/html2atom/metadata-set/index.html?strip-space=yes" />
+        <x:expect
+            label="the output must equal to feed.atom (ignoring whitespace)"
+            href="../data/html2atom/metadata-set/feed.atom?strip-space=yes" />
+    </x:scenario>
+    
+    <x:scenario label="When index.html (with incorrectly set metadata elements) is transformed to an Atom feed">
+        <x:context href="../data/html2atom/metadata-incorrectlyset/index.html?strip-space=yes" />
+        <x:expect
+            label="the output must equal to feed.atom (ignoring whitespace)"
+            href="../data/html2atom/metadata-incorrectlyset/feed.atom?strip-space=yes" />
+    </x:scenario>
+    
+    <x:scenario label="When index.html (without metadata elements) is transformed to an Atom feed">
+        <x:context href="../data/html2atom/metadata-notset/index.html?strip-space=yes" />
+        <x:expect
+            label="the output must equal to feed.atom (ignoring whitespace)"
+            href="../data/html2atom/metadata-notset/feed.atom?strip-space=yes" />
+    </x:scenario>
+    
+</x:description>

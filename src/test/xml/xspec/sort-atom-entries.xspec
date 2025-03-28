@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+    stylesheet="../../../main/xml/xslt/sort-atom-entries.xsl">
+
+    <!-- strip-space=yes,
+    see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
+    <x:scenario label="When examplesubregister_before_sort.atom is transformed to genericode">
+        <x:context href="../data/sort-atom-entries/examplesubregister_before_sort.atom?strip-space=yes" />
+        <x:expect
+            label="the output must equal to examplesubregister_after_sort.atom (ignoring whitespace)"
+            href="../data/sort-atom-entries/examplesubregister_after_sort.atom?strip-space=yes" />
+    </x:scenario>
+
+</x:description>

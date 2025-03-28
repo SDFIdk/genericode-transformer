@@ -4,6 +4,7 @@
     xmlns:gt="urn:uuid:dcebd429-ed94-465a-a0a0-66e47def2454"
     xmlns:p="http://www.w3.org/ns/xproc"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xvrl="http://www.xproc.org/ns/xvrl"
     name="generate-code-list-register-site"
     type="gt:generate-code-list-register-site"
     version="3.0">
@@ -16,15 +17,29 @@
         * the 3rd level directories contain a file for each version of a code lists, following pattern v1.2.3.codelist.gc.
 
         The 3rd
-        level directories possibly also contain files index.html, v1.2.3.codelist.csv and v1.2.3.codelist.html, if the site has been generated earlier.
+        level directories possibly also contain files index.html, v1.2.3.codelist.csv, v1.2.3.codelist.html
+        and v1.2.3.codelist.atom, if the site has been generated earlier.
     </p:documentation>
     
     <p:import href="transform-and-store-codelists.xpl" />
     <p:import href="create-code-list-version-overviews.xpl" />
     <p:import href="update-subregister-front-pages.xpl" />
     <p:import href="update-front-page.xpl" />
+    
+    <p:output
+        port="report"
+        primary="false"
+        content-types="xml"
+        serialization="map { 'indent': true() }">
+        <p:pipe
+            step="update-reports-metadata"
+            port="result" />
+    </p:output>
 
     <p:option name="input-directory" />
+    
+    <!-- E.g. https://example.org/codelistregister/ -->
+    <p:option name="code-list-register-uri" />
     
     <p:option
         name="overwrite-existing-alternative-formats"
@@ -75,6 +90,9 @@
         <p:with-option
             name="input-directory"
             select="$input-directory" />
+        <p:with-option
+            name="code-list-register-uri"
+            select="$code-list-register-uri" />
     </gt:update-subregister-front-pages>
 
     <!-- This step reads the index.html files in the subregisters. Those files are updated
@@ -88,5 +106,37 @@
             name="input-directory"
             select="$input-directory" />
     </gt:update-front-page>
+    
+    <!-- Gather reports from previous steps. -->
+    <p:wrap-sequence
+        name="collect-reports"
+        message="Collect reports from steps">
+        <p:with-input port="source">
+            <p:pipe
+                step="update-subregister-front-pages"
+                port="report" />
+        </p:with-input>
+        <p:with-option
+            name="wrapper"
+            select="QName('http://www.xproc.org/ns/xvrl', 'reports')" />
+    </p:wrap-sequence>
+    
+    <p:insert
+        name="update-reports-metadata"
+        message="Update metadata for reports from steps">
+        <p:with-input port="insertion">
+            <p:inline exclude-inline-prefixes="#all">
+                <metadata xmlns="http://www.xproc.org/ns/xvrl">
+                    <title>Report from XProc step generate-code-list-register-site</title>
+                </metadata>
+            </p:inline>
+        </p:with-input>
+        <p:with-option
+            name="match"
+            select="'/xvrl:reports'" />
+        <p:with-option
+            name="position"
+            select="'first-child'" />
+    </p:insert>
 
 </p:declare-step>
