@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+    stylesheet="../../../main/xml/xslt/gc2atom.xsl">
+	
+	<x:scenario label="Test that the actual updated value is castable as datetime">
+		<x:context href="../data/gc2atom/v1.0.1.forretningsproces.gc?strip-space=yes" />
+		<x:expect label="test actual updated output is valid as a dateTime"
+				  test="$x:result/atom:entry/atom:updated castable as xsd:dateTime" />
+	</x:scenario>
+	
+</x:description>

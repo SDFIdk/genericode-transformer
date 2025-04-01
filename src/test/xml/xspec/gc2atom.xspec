@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x:description
+    xmlns:x="http://www.jenitennison.com/xslt/xspec"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    stylesheet="../../../main/xml/xslt/gc2atom.xsl">
+
+	<x:param
+        name="updated"
+        select="'2025-03-20T13:27:44Z'"
+		as="xsd:string"/>
+
+    <x:scenario label="Test that xsl-stylesheet gc2atom.xsl delivers expected atom entry from specific code list">
+        <x:context href="../data/gc2atom/v1.0.1.forretningsproces.gc?strip-space=yes" />
+        <x:expect label="the output must equal to v1.0.1.forretningsproces.atom"
+				  href="../data/gc2atom/v1.0.1.forretningsproces.atom?strip-space=yes" />
+    </x:scenario>
+	
+</x:description>

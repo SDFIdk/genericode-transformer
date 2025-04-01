@@ -14,7 +14,7 @@
         subdirectories,
         and creates the CSV and HTML encodings of each code list version, in the directory structure that is provided as input.
         So
-        v1.2.3.codelist.csv and v1.2.3.codelist.html will be saved in the same directory as v1.2.3.codelist.gc is present in.
+        v1.2.3.codelist.csv, v1.2.3.codelist.html and v1.2.3.codelist.atom will be saved in the same directory as v1.2.3.codelist.gc is present in.
         It is assumed that the
         file names follow the pattern v1.2.3.codelist.html, v1.2.3.codelist.gc, etc.
 
@@ -49,12 +49,13 @@
             select="$input-directory-urified" />
         <!-- v1.2.3.codelist.gc must match,
         v1.2.3.codelist.csv must match,
-        v1.2.3.codelist.html must match
+        v1.2.3.codelist.html must match,
+		v1.2.3.codelist.atom must match
         Later on it is checked whether the CSV/HTML encodings already exist.
          -->
         <p:with-option
             name="include-filter"
-            select="'v[0-9]+\.[0-9]+\.[0-9]+\.[^/]+\.[gc|csv|html]'" />
+            select="'v[0-9]+\.[0-9]+\.[0-9]+\.[^/]+\.[gc|csv|html|atom]'" />
         <p:with-option
             name="max-depth"
             select="'unbounded'" />
@@ -102,11 +103,23 @@
                 step="create-directory-list"
                 port="result" />
         </p:variable>
+		
+		<p:variable
+			name="base-uri-atom"
+			select="replace($base-uri-gc, '.gc', '.atom')" />
+		
+		<p:variable
+			name="atom-exists"
+			select="exists(//c:file[base-uri() eq $base-uri-atom])">
+			<pipe
+				step="create-directory-list"
+				port="result" />
+		</p:variable>
 
         <p:choose>
             <!-- Only load the genericode file when it is actually needed to transform it into other formats,
             as loading files from disk can be expensive. -->
-            <p:when test="$overwrite-existing-alternative-formats or not($csv-exists) or not($html-exists)">
+            <p:when test="$overwrite-existing-alternative-formats or not($csv-exists) or not($html-exists) or not($atom-exists)">
                 <p:load
                     name="load-gc"
                     message="Load {$gc-name} from {$base-uri-gc}"
@@ -160,6 +173,31 @@
                     </p:when>
                     <p:otherwise>
                         <p:identity message="Do not transform {$gc-name} to HTML as {$base-uri-html} already exists" />
+                    </p:otherwise>
+                </p:choose>
+				
+				<p:choose>
+                    <p:when test="$overwrite-existing-alternative-formats or not($atom-exists)">
+                        <p:xslt
+                            name="gc2atom"
+                            message="Transform {$base-uri-gc} to ATOM">
+                            <p:with-input port="source">
+                                <p:pipe
+                                    step="load-gc"
+                                    port="result" />
+                            </p:with-input>
+                            <p:with-input
+                                port="stylesheet"
+                                href="../xslt/gc2atom.xsl" />
+                        </p:xslt>
+
+                        <p:store
+                            name="store-atom"
+                            message="Store ATOM code list in {$base-uri-atom}"
+                            href="{$base-uri-atom}" />
+                    </p:when>
+                    <p:otherwise>
+                        <p:identity message="Do not transform {$gc-name} to ATOM as {$base-uri-atom} already exists" />
                     </p:otherwise>
                 </p:choose>
 
