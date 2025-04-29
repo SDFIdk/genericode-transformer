@@ -50,6 +50,8 @@
                     name="href"
                     select="$designsystemUrl || '/designsystem.css'" />
             </link>
+			<!--Atom Feed autodiscovery-->
+			<link rel="alternate" type="application/atom+xml" href="./feed.atom" title="Atom Feed" />
             <script type="module">
                 import {
                 DSLogo,
@@ -115,6 +117,21 @@
                 <div>
                     <!-- Preamble is taken care of in the header -->
                     <xsl:apply-templates select="xhtml:*[not(@id eq 'preamble')]" />
+					<section>
+						<h2>
+							<xsl:call-template name="localizedMessage">
+								<xsl:with-param
+									name="id"
+									select="'feedtitle'"/>
+							</xsl:call-template>
+						</h2>
+						<p><xsl:call-template name="localizedMessage">
+							<xsl:with-param
+								name="id"
+								select="'feeddescription'" />
+						</xsl:call-template>
+						<xsl:call-template name="feedLink" />.</p>
+					</section>
                 </div>
             </div>
         </main>
