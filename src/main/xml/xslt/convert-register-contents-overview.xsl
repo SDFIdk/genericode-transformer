@@ -51,7 +51,17 @@
                     select="$designsystemUrl || '/designsystem.css'" />
             </link>
 			<!--Atom Feed autodiscovery-->
-			<link rel="alternate" type="application/atom+xml" href="./feed.atom" title="Atom Feed" />
+			<link rel="alternate" type="application/atom+xml" href="./feed.atom">
+                <xsl:attribute
+                    name="title">
+                    <xsl:value-of select="xhtml:title || ' '" />
+                    <xsl:call-template name="localizedMessage">
+                        <xsl:with-param
+                            name="id"
+                            select="'feedtextlink'" />
+                    </xsl:call-template>
+                </xsl:attribute>
+            </link>
             <script type="module">
                 import {
                 DSLogo,
@@ -125,12 +135,16 @@
 									select="'feedtitle'"/>
 							</xsl:call-template>
 						</h2>
-						<p><xsl:call-template name="localizedMessage">
-							<xsl:with-param
-								name="id"
-								select="'feeddescription'" />
-						</xsl:call-template>
-						<xsl:call-template name="feedLink" />.</p>
+						<p>
+                            <xsl:call-template name="localizedMessage">
+    							<xsl:with-param
+    								name="id"
+    								select="'feeddescription'" />
+						    </xsl:call-template>
+                            <xsl:value-of select="' '" />
+						    <xsl:call-template name="feedLink" />
+                            <xsl:value-of select="'.'" />
+                       </p>
 					</section>
                 </div>
             </div>
