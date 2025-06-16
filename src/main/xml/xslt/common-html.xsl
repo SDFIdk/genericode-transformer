@@ -102,7 +102,8 @@
 				<xsl:with-param
 					name="id"
 					select="'feedtextlink'" />
-			</xsl:call-template><xsl:copy-of select="$feedIcon" />
+			</xsl:call-template>
+            <xsl:copy-of select="$feedIcon" />
 		</a>
 	</xsl:template>
 
