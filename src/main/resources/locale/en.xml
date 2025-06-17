@@ -12,6 +12,11 @@
     <message id="registername">Code list register</message>
     <message id="registerowner">Agency for Climate Data</message>
     
+	<!-- Feed -->
+	<message id="feedtitle">Feed</message>
+	<message id="feeddescription">Follow updates and additions to the register's</message>
+	<message id="feedtextlink">code list feed</message>
+
     <!-- Navigation -->
     <message id="frontpage">the front page</message>
     

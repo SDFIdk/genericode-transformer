@@ -28,6 +28,10 @@
         name="mailIcon"
         select="document($designsystemUrl || '/icons/mail.svg')" />
 
+	<xsl:variable
+		name="feedIcon"
+		select="document($designsystemUrl || '/icons/some-feed.svg')" />
+
     <!-- Prerequisite: DSLogoTitle has been imported from designsystem.js in the stylesheet that includes this stylesheet -->
     <xsl:template name="generateDsLogoTitle">
         <ds-logo-title>
@@ -91,5 +95,16 @@
             </div>
         </footer>
     </xsl:template>
+
+	<xsl:template name="feedLink">
+		<a href="./feed.atom">
+			<xsl:call-template name="localizedMessage">
+				<xsl:with-param
+					name="id"
+					select="'feedtextlink'" />
+			</xsl:call-template>
+            <xsl:copy-of select="$feedIcon" />
+		</a>
+	</xsl:template>
 
 </xsl:stylesheet>
