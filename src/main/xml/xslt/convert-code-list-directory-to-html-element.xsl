@@ -37,7 +37,7 @@
                                 <xsl:attribute
                                     name="href"
                                     select="let $regex := '^v(([0-9]+)\.([0-9]+)\.([0-9]+))\..*',
-                                        $files := c:file[not(@name eq 'index.html')],
+                                        $files := c:file[ends-with(@name, 'html') and not(@name eq 'index.html')],
                                         $filesSortedOnVersionAscending := sort(
                                           $files,
                                           default-collation(),
