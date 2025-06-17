@@ -50,6 +50,20 @@
                     name="href"
                     select="$designsystemUrl || '/designsystem.css'" />
             </link>
+			<!--Atom Feed autodiscovery-->
+			<xsl:if test="$level eq 2">
+				<link rel="alternate" type="application/atom+xml" href="./feed.atom">
+					<xsl:attribute
+						name="title">
+						<xsl:value-of select="xhtml:title || ' '" />
+						<xsl:call-template name="localizedMessage">
+							<xsl:with-param
+								name="id"
+								select="'feedtextlink'" />
+						</xsl:call-template>
+					</xsl:attribute>
+				</link>
+			</xsl:if>
             <script type="module">
                 import {
                 DSLogo,
@@ -112,10 +126,31 @@
                         <xsl:copy-of select="$registerContentsElement" />
                     </xsl:if>
                 </section>
-                <div>
-                    <!-- Preamble is taken care of in the header -->
-                    <xsl:apply-templates select="xhtml:*[not(@id eq 'preamble')]" />
-                </div>
+				<div>
+					<!-- Preamble is taken care of in the header -->
+					<xsl:apply-templates select="xhtml:*[not(@id eq 'preamble')]" />
+					<xsl:if test="$level eq 2">
+						<section>
+							<h2>
+								<xsl:call-template name="localizedMessage">
+									<xsl:with-param
+										name="id"
+										select="'feedtitle'"/>
+								</xsl:call-template>
+							</h2>
+							<p>
+								<xsl:call-template name="localizedMessage">
+									<xsl:with-param
+										name="id"
+										select="'feeddescription'" />
+								</xsl:call-template>
+								<xsl:value-of select="' '" />
+								<xsl:call-template name="feedLink" />
+								<xsl:value-of select="'.'" />
+							</p>
+						</section>
+					</xsl:if>
+				</div>
             </div>
         </main>
         <xsl:call-template name="generateHtmlFooter" />
