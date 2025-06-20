@@ -51,7 +51,7 @@
         v1.2.3.codelist.csv must match,
         v1.2.3.codelist.html must match,
 		v1.2.3.codelist.atom must match
-        Later on it is checked whether the CSV/HTML encodings already exist.
+        Later on it is checked whether the CSV/HTML/Atom encodings already exist.
          -->
         <p:with-option
             name="include-filter"
@@ -111,7 +111,7 @@
 		<p:variable
 			name="atom-exists"
 			select="exists(//c:file[base-uri() eq $base-uri-atom])">
-			<pipe
+			<p:pipe
 				step="create-directory-list"
 				port="result" />
 		</p:variable>
@@ -203,7 +203,7 @@
 
             </p:when>
             <p:otherwise>
-                <p:identity message="Skip {$base-uri-gc}" />
+                <p:identity message="Do not transform {$gc-name} as its alternative formats already exist" />
             </p:otherwise>
 
         </p:choose>
