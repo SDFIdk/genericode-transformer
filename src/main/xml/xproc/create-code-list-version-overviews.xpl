@@ -10,7 +10,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="create-code-list-version-overviews"
     type="gt:create-code-list-version-overviews"
-    version="3.0">
+    version="3.1">
 
     <p:documentation>This step takes a directory containing versions of code lists in the different formats,
         in the directory itself and in its subdirectories,

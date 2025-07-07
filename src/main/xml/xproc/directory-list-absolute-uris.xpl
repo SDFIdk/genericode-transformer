@@ -7,7 +7,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="directory-list-absolute-uris"
     type="gt:directory-list-absolute-uris"
-    version="3.0">
+    version="3.1">
 
     <p:documentation>This step is a workaround for a bug in the current versions of the XProc processors, see also
         https://lists.w3.org/Archives/Public/xproc-dev/2025Feb/0013.html.

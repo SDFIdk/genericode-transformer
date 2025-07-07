@@ -12,7 +12,7 @@
     xmlns:xvrl="http://www.xproc.org/ns/xvrl"
     name="update-subregister-front-pages"
     type="gt:update-subregister-front-pages"
-    version="3.0">
+    version="3.1">
 
     <p:documentation>This step takes a directory containing directories, and
         

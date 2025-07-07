@@ -7,7 +7,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="transform-and-store-codelists"
     type="gt:transform-and-store-codelists"
-    version="3.0">
+    version="3.1">
 
     <p:documentation>This step takes a directory containing versions of code lists in genericode (GC),
         in the directory itself and in its
