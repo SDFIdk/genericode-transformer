@@ -20,10 +20,11 @@ The installation instructions assume that the installation is done on a Windows 
   - Add the path to that directory to your user's _Path_ environment variable.
 - schxslt:
   - Download the [Schematron processor schxslt](https://codeberg.org/SchXslt/schxslt) (schxslt-x.y.z-xslt-only.zip), extract the zip file and move the contents to an appropriate place.
-
-## Usage
-
-### Configuration
+- XSpec (only needed for development):
+  - Download/clone the [unit testing framework XSpec](https://github.com/xspec/xspec/)
+  - Set the environment variable `XSPEC_HOME` to the location where XSpec is stored.
+  
+## Configuration of Morgana
 
 Create a file `morgana-config.xml` file in folder `local-scripts`.
 
@@ -38,7 +39,7 @@ Create a file `morgana-config.xml` file in folder `local-scripts`.
 	<schematron-connector>schxslt</schematron-connector>
 	<path_to_SchXSLT_2>file:///path/to/schxslt-x.y.z/2.0</path_to_SchXSLT_2>
     
-   <!-- See "Adding media type mappings" on https://www.xml-project.com/manual/ch02.html#configuration_s1_5 -->
+	<!-- See "Adding media type mappings" on https://www.xml-project.com/manual/ch02.html#configuration_s1_5 -->
 	<mediatype-mapping>
 		<map file-extension="gc" media-type="application/xml" />
 	</mediatype-mapping>	
@@ -51,6 +52,20 @@ Customize `morgana-config.xml`:
 * Customise the value of element `xslt-connector` to match the value specified for your version of Saxon as specified in https://www.xml-project.com/manual/ch02.html#configuration_s1_1_s2_2;
 * Customise the path in element `path_to_SchXSLT_2`.
 
+## Configuration check
+
+To check your configuration, run batch file `print-configuration.bat` in folder `scripts` from the _root directory_ of the working tree of your local repository:
+
+```bat
+scripts\print-configuration.bat
+```
+
+The output will show the versions of the applications needed by the sripts.
+
+> [!NOTE]
+> XSpec is only needed for running the tests.
+
+## Usage
 
 The usage instructions assume that the application is used on a Windows computer.
 

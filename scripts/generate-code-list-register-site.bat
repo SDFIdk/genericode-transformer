@@ -101,10 +101,10 @@ goto:eof
 
 :displayMessageAsciidoctorJ
 	echo asciidoctorj was not found, please install it and try again.
-	echo Directories where your operating system searches for executable files: %PATH%
+	echo Use scripts\print-configuration.bat to check your configuration.
 goto:eof
 
 :displayMessageMorgana
 	echo Morgana was not found, please install it and try again.
-	echo Directories where your operating system searches for executable files: %PATH%
+	echo Use scripts\print-configuration.bat to check your configuration.
 goto:eof
