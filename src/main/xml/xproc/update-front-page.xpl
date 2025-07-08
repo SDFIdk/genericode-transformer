@@ -10,7 +10,7 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     name="update-front-page"
     type="gt:update-front-page"
-    version="3.0">
+    version="3.1">
 
     <p:documentation>This step takes a directory containing an overview file index.html,
         and updates that file:
