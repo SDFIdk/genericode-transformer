@@ -17,8 +17,8 @@
         * the 3rd level directories contain a file for each version of a code lists, following pattern v1.2.3.codelist.gc.
 
         The 3rd
-        level directories possibly also contain files index.html, v1.2.3.codelist.csv, v1.2.3.codelist.html
-        and v1.2.3.codelist.atom, if the site has been generated earlier.
+        level directories possibly also contain files index.html, v1.2.3.codelist.csv, v1.2.3.codelist.html,
+        v1.2.3.codelist.atom and v1.2.3.codelist.rdf if the site has been generated earlier.
     </p:documentation>
     
     <p:import href="transform-and-store-codelists.xpl" />
@@ -65,6 +65,9 @@
         <p:with-option
             name="overwrite-existing-alternative-formats"
             select="$overwrite-existing-alternative-formats" />
+        <p:with-option
+            name="code-list-register-uri"
+            select="$code-list-register-uri" />
     </gt:transform-and-store-codelists>
 
     <!-- This step assumes that the HTML encodings of all code lists have been created already.
