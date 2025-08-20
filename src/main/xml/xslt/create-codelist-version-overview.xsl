@@ -12,6 +12,7 @@
 
     <xsl:output
         method="html"
+        encoding="utf-8"
         html-version="5.0"
         include-content-type="no"
         omit-xml-declaration="yes" />

@@ -88,7 +88,7 @@
 
                     <xsl:output
                         method="xml"
-                        encoding="utf-8"
+                        encoding="UTF-8"
                         indent="yes" />
 
                     <xsl:template match="*">

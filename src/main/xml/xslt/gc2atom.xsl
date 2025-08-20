@@ -7,8 +7,11 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns="http://www.w3.org/2005/Atom"
     exclude-result-prefixes="xsd gc dcterms">
-	
-	<xsl:output indent="yes" method="xml" />
+
+    <xsl:output
+        method="xml"
+        encoding="UTF-8"
+        indent="yes" />
 
     <!-- Identity transformation -->
     <xsl:mode on-no-match="shallow-copy" />
