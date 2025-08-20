@@ -127,7 +127,8 @@
 
     <p:xslt
         name="sort-on-name"
-        message="Sort rows on name">
+        message="Sort rows on name"
+        version="3.0">
         <p:with-input
             port="stylesheet"
             href="../xslt/sort-one-column-table-on-contents.xsl" />
@@ -144,7 +145,8 @@
 
     <p:xslt
         name="transform-front-page"
-        message="Update front page">
+        message="Update front page"
+        version="3.0">
         <p:with-input port="source">
             <p:pipe
                 step="load-index-html"

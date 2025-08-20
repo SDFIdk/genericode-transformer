@@ -34,7 +34,9 @@
         </p:with-input>
     </p:identity>
 
-    <p:xslt name="add-xslt-processor-properties">
+    <p:xslt
+        name="add-xslt-processor-properties"
+        version="3.0">
         <p:with-input
             port="stylesheet"
             exclude-inline-prefixes="dct rdf sch skos svrl xsd">
@@ -109,7 +111,9 @@
             select="'last-child'" />
     </p:insert>
 
-    <p:xslt name="xml2txt">
+    <p:xslt
+        name="xml2txt"
+        version="3.0">
         <p:with-input
             port="stylesheet"
             exclude-inline-prefixes="#all">

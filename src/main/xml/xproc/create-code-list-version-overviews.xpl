@@ -107,7 +107,8 @@
 
         <p:xslt
             name="convert-code-list-version-directory-to-html-element"
-            message="Create HTML element from file names in {$directory-uri}">
+            message="Create HTML element from file names in {$directory-uri}"
+            version="3.0">
             <p:with-input
                 port="stylesheet"
                 href="../xslt/convert-code-list-version-directory-to-html-element.xsl" />
@@ -145,7 +146,8 @@
 
         <p:xslt
             name="create-code-list-version-overview-page"
-            message="Create code list version overview page for {$name-latest-version} in language {$lang-latest-version}">
+            message="Create code list version overview page for {$name-latest-version} in language {$lang-latest-version}"
+            version="3.0">
             <p:with-input
                 port="stylesheet"
                 href="../xslt/create-codelist-version-overview.xsl" />
