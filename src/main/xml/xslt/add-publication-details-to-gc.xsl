@@ -30,6 +30,16 @@
         as="xsd:anyURI"
         required="true" />
 
+    <xsl:param
+        name="addCsvAsAlternateFormat"
+        select="true()"
+        as="xsd:boolean" />
+
+    <xsl:param
+        name="addRdfAsAlternateFormat"
+        select="true()"
+        as="xsd:boolean" />
+
     <xsl:template match="gc:CodeList/Annotation/Description">
         <Description>
             <xsl:apply-templates select="@*" />
@@ -43,7 +53,7 @@
 
     <xsl:template match="gc:CodeList/Identification">
         <xsl:copy>
-            <xsl:apply-templates select="(ShortName|LongName|Version|CanonicalUri|CanonicalVersionUri)" />
+            <xsl:apply-templates select="ShortName|LongName|Version|CanonicalUri|CanonicalVersionUri" />
             <LocationUri>
                 <xsl:call-template name="constructLocationFormat">
                     <xsl:with-param
@@ -51,13 +61,15 @@
                         select="'gc'" />
                 </xsl:call-template>
             </LocationUri>
-            <AlternateFormatLocationUri MimeType="text/csv">
-                <xsl:call-template name="constructLocationFormat">
-                    <xsl:with-param
-                        name="fileExtension"
-                        select="'csv'" />
-                </xsl:call-template>
-            </AlternateFormatLocationUri>
+            <xsl:if test="$addCsvAsAlternateFormat">
+                <AlternateFormatLocationUri MimeType="text/csv">
+                    <xsl:call-template name="constructLocationFormat">
+                        <xsl:with-param
+                            name="fileExtension"
+                            select="'csv'" />
+                    </xsl:call-template>
+                </AlternateFormatLocationUri>
+            </xsl:if>
             <AlternateFormatLocationUri MimeType="text/html">
                 <xsl:call-template name="constructLocationFormat">
                     <xsl:with-param
@@ -65,14 +77,27 @@
                         select="'html'" />
                 </xsl:call-template>
             </AlternateFormatLocationUri>
+            <xsl:if test="$addRdfAsAlternateFormat">
+                <AlternateFormatLocationUri MimeType="application/rdf+xml">
+                    <xsl:call-template name="constructLocationFormat">
+                        <xsl:with-param
+                            name="fileExtension"
+                            select="'rdf'" />
+                    </xsl:call-template>
+                </AlternateFormatLocationUri>
+            </xsl:if>
             <xsl:apply-templates select="Agency" />
         </xsl:copy>
     </xsl:template>
 
     <xsl:template name="constructLocationFormat">
         <!-- File extension, without dot at the start -->
-        <xsl:param name="fileExtension" />
-        <xsl:value-of select="(if (ends-with($codeListSubregisterUri, '/')) then $codeListSubregisterUri else $codeListSubregisterUri || '/') || ShortName || '/v' || Version || '.' || ShortName || '.' || $fileExtension" />
+        <xsl:param
+            name="fileExtension"
+            required="yes"
+            as="xsd:string" />
+        <xsl:value-of
+            select="(if (ends-with($codeListSubregisterUri, '/')) then $codeListSubregisterUri else $codeListSubregisterUri || '/') || ShortName || '/v' || Version || '.' || ShortName || '.' || $fileExtension" />
     </xsl:template>
 
 </xsl:stylesheet>

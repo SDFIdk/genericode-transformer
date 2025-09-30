@@ -2,7 +2,7 @@
 <x:description
     xmlns:x="http://www.jenitennison.com/xslt/xspec"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    stylesheet="../../../main/xml/xslt/gc2gc.xsl">
+    stylesheet="../../../main/xml/xslt/add-publication-details-to-gc.xsl">
 
     <x:param
         name="publicationDate"
@@ -13,13 +13,17 @@
         name="codeListSubregisterUri"
         select="'https://example.org/codelistregister/subregister/'" />
         
+    <x:param
+        name="addRdfAsAlternateFormat"
+        select="false()" />
+        
     <!-- strip-space=yes,
     see https://github.com/xspec/xspec/wiki/Whitespace-only-Text-Nodes#controlling-whitespace-only-text-nodes-in-external-xml -->
     <x:scenario label="When input_before_publication_da.gc is transformed to genericode">
-        <x:context href="../data/gc2gc/input_before_publication_da.gc?strip-space=yes" />
+        <x:context href="../data/add-publication-details-to-gc/input_before_publication_da.gc?strip-space=yes" />
         <x:expect
-            label="the output must equal to input_after_publication_da.gc (ignoring whitespace)"
-            href="../data/gc2gc/input_after_publication_da.gc?strip-space=yes" />
+            label="the output must equal to input_after_publication_da_without_rdf.gc (ignoring whitespace)"
+            href="../data/add-publication-details-to-gc/input_after_publication_da_without_rdf.gc?strip-space=yes" />
     </x:scenario>
 
 </x:description>

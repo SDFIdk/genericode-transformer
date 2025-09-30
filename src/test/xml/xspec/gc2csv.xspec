@@ -6,7 +6,7 @@
     <x:scenario
         pending="Clarify whether it actually is possible to compare CSV or text files using XSpec"
         label="When input_after_publication_da.gc is transformed to CSV">
-        <x:context href="../data/gc2gc/input_after_publication_da.gc" />
+        <x:context href="../data/add-publication-details-to-gc/input_after_publication_da.gc" />
         <x:expect
             label="the output must equal to output_da.csv"
             href="../data/gc2csv/output_da.csv" />
