@@ -36,10 +36,14 @@
             port="result" />
     </p:output>
 
-    <p:option name="input-directory" />
+    <p:option
+        name="input-directory"
+        required="true" />
     
     <!-- E.g. https://example.org/codelistregister/ -->
-    <p:option name="code-list-register-uri" />
+    <p:option
+        name="code-list-register-uri"
+        required="true" />
     
     <p:option
         name="overwrite-existing-alternative-formats"

@@ -26,7 +26,9 @@
     
     <p:import href="directory-list-absolute-uris.xpl" />
 
-    <p:option name="input-directory" />
+    <p:option
+        name="input-directory"
+        required="true" />
 
     <p:option
         name="debug"

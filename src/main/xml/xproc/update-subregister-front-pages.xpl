@@ -44,11 +44,15 @@
             port="result" />
     </p:output>
 
-    <p:option name="input-directory" />
+    <p:option
+        name="input-directory"
+        required="true" />
     
     <!-- E.g. https://example.org/codelistregister/ 
     This option is needed to be able to construct the links in the feed. -->
-    <p:option name="code-list-register-uri" />
+    <p:option
+        name="code-list-register-uri"
+        required="true" />
 
     <p:option
         name="debug"
