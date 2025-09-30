@@ -74,11 +74,13 @@
                 <script type="module">
                     import {
                     DSLogo,
-                    DSLogoTitle
+                    DSLogoTitle,
+                    DSNav
                     } from
                     <xsl:value-of select="' '' ' || $designsystemUrl || '/designsystem.js '' '" />
                     customElements.define('ds-logo', DSLogo)
                     customElements.define('ds-logo-title', DSLogoTitle)
+                    customElements.define('ds-nav', DSNav)
                 </script>
                 <link rel="stylesheet">
                     <xsl:attribute
@@ -399,6 +401,9 @@
                             <xsl:when test="@MimeType eq 'text/csv'">
                                 <xsl:value-of select="'CSV'" />
                             </xsl:when>
+                            <xsl:when test="@MimeType eq 'application/rdf+xml'">
+                                <xsl:value-of select="'RDF/XML'" />
+                            </xsl:when>
                             <xsl:otherwise>
                                 <xsl:message>
                                     <xsl:value-of select="'WARNING: No format name defined for media type ' || @MimeType" />
@@ -420,19 +425,21 @@
         <xsl:param name="format" />
         <xsl:param name="mediatype" />
         <div>
-            <a role="button">
-                <xsl:attribute name="href">
-                    <xsl:value-of select="$downloadlink" />
-                </xsl:attribute>
-                <xsl:attribute name="type">
-                    <xsl:value-of select="$mediatype" />
-                </xsl:attribute>
-                <xsl:attribute name="rel">
-                    <xsl:value-of select="'alternate'" />
-                </xsl:attribute>
-                <xsl:copy-of select="$downloadIcon" />
-                <xsl:value-of select="$format" />
-            </a>
+			<ds-nav style="width: 100%;" data-align="left">
+				<a role="button" style="width: 100%; font-size: 15px;">
+					<xsl:attribute name="href">
+						<xsl:value-of select="$downloadlink" />
+					</xsl:attribute>
+					<xsl:attribute name="type">
+						<xsl:value-of select="$mediatype" />
+					</xsl:attribute>
+					<xsl:attribute name="rel">
+						<xsl:value-of select="'alternate'" />
+					</xsl:attribute>
+					<xsl:copy-of select="$downloadIcon" />
+					<xsl:value-of select="$format" />
+				</a>
+			</ds-nav>
         </div>
     </xsl:template>
 
