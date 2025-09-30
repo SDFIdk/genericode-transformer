@@ -11,7 +11,10 @@
     Stylesheet that creates an Atom Feed Document containing only metadata.
     -->
 
-    <xsl:output indent="yes" />
+    <xsl:output
+        method="xml"
+        encoding="UTF-8"
+        indent="yes" />
 
     <xsl:mode on-no-match="shallow-skip" />
     

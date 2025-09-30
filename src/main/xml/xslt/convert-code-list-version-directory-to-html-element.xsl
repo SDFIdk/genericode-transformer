@@ -16,6 +16,8 @@
     -->
 
     <xsl:output
+        method="xml"
+        encoding="UTF-8"
         indent="yes"
         omit-xml-declaration="yes" />
 

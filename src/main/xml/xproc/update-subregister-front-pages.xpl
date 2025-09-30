@@ -44,11 +44,15 @@
             port="result" />
     </p:output>
 
-    <p:option name="input-directory" />
+    <p:option
+        name="input-directory"
+        required="true" />
     
     <!-- E.g. https://example.org/codelistregister/ 
     This option is needed to be able to construct the links in the feed. -->
-    <p:option name="code-list-register-uri" />
+    <p:option
+        name="code-list-register-uri"
+        required="true" />
 
     <p:option
         name="debug"
@@ -150,7 +154,8 @@
 
             <p:xslt
                 name="convert-index-html-to-feed"
-                message="Convert index.html to empty feed">
+                message="Convert index.html to empty feed"
+                version="3.0">
                 <p:with-input port="source">
                     <p:pipe
                         step="load-index-html"
@@ -210,7 +215,8 @@
 
             <p:xslt
                 name="sort-atom-entries-from-most-to-least-recent"
-                message="Sort Atom entries from most to least recent">
+                message="Sort Atom entries from most to least recent"
+                version="3.0">
                 <p:with-input
                     port="stylesheet"
                     href="../xslt/sort-atom-entries.xsl" />
@@ -220,7 +226,8 @@
             otherwise sort-atom-entries.xsl would be harder to test. -->
             <p:xslt
                 name="update-feed-timestamp"
-                message="Update time of last feed update">
+                message="Update time of last feed update"
+                version="3.0">
                 <p:with-input
                     port="stylesheet"
                     href="../xslt/update-feed-updated.xsl" />
@@ -324,7 +331,8 @@
 
             <p:xslt
                 name="convert-code-list-directory-to-html-element"
-                message="Create HTML element from file names in {$directory-uri}">
+                message="Create HTML element from file names in {$directory-uri}"
+                version="3.0">
                 <p:with-input port="source">
                     <p:pipe
                         step="process-directory-list-subregister"
@@ -352,7 +360,8 @@
     
             <p:xslt
                 name="transform-code-list-overview-page"
-                message="Update code list version overview page">
+                message="Update code list version overview page"
+                version="3.0">
                 <p:with-input port="source">
                     <p:pipe
                         step="load-index-html"

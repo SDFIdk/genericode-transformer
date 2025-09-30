@@ -9,7 +9,9 @@
     Stylesheet that converts a genericode file to a CSV file.
     -->
 
-    <xsl:output method="text" />
+    <xsl:output
+        method="text"
+        encoding="UTF-8" />
     
 	<!-- See https://www.w3.org/TR/xslt-30/#element-mode and https://www.w3.org/TR/xslt-30/#built-in-templates-shallow-skip -->
     <xsl:mode on-no-match="shallow-skip" />

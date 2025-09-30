@@ -77,7 +77,8 @@
 
     <p:xslt
         name="make-absolute-uris"
-        message="Make xml:base attributes absolute URIs in list of contents of {$path}">
+        message="Make xml:base attributes absolute URIs in list of contents of {$path}"
+        version="3.0">
         <p:with-input port="stylesheet">
             <!-- See https://lists.w3.org/Archives/Public/xproc-dev/2025Feb/0015.html -->
             <p:inline>
@@ -87,7 +88,7 @@
 
                     <xsl:output
                         method="xml"
-                        encoding="utf-8"
+                        encoding="UTF-8"
                         indent="yes" />
 
                     <xsl:template match="*">

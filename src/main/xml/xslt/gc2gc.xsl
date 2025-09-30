@@ -11,7 +11,10 @@
     Stylesheet that adds/updates the publication information to/of a genericode file.
     -->
 
-    <xsl:output indent="yes" />
+    <xsl:output
+        method="xml"
+        encoding="UTF-8"
+        indent="yes" />
 
     <!-- Identity transformation -->
     <xsl:mode on-no-match="shallow-copy" />
