@@ -278,7 +278,9 @@
                         <p:when test="$rdf-is-alternate-format and (p:iteration-position() = 1) and ($overwrite-existing-alternative-formats or not($codevalue-index-files-for-latest-version-exist))">
                             <p:identity message="Create directory and index file for each code value in {$gc-name}"/>
                             <p:for-each name="for-each-gc-codevalue">
-                                <p:with-input select="/gc:CodeList/SimpleCodeList/Row/Value[@ColumnRef='kode']/SimpleValue"/>
+                                <p:with-input select="/gc:CodeList/SimpleCodeList/Row/Value[@ColumnRef='kode']/SimpleValue">
+                                    <p:pipe step="load-gc" port="result" />
+                                </p:with-input>
                                 <!-- 
                                 (1) Encode characters that are reserved according to RFC 3986 (encode-for-uri)
                                 (2) Replace characters that are reserved in relation to Windows file names, see e.g. https://learn.microsoft.com/en-us/windows/win32/fileio/naming-a-file,
@@ -321,6 +323,9 @@
                                 </p:store>
                             </p:for-each>
                         </p:when>
+                        <p:otherwise>
+                            <p:identity message="Do not create directories nor index files for {$gc-name}"/>
+                        </p:otherwise>
                     </p:choose>
                 </p:when>
                 <p:otherwise>
