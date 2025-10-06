@@ -14,8 +14,8 @@
     
 	<!-- Feed -->
 	<message id="feedtitle">Feed</message>
-	<message id="feeddescription">Følg med i opdateringer og tilføjelser af registerets</message>
-	<message id="feedtextlink">kodelistefeed</message>
+	<message id="feeddescription">Følg med i opdateringer og tilføjelser af registerets kodelister via</message>
+	<message id="feedtextlink">feed</message>
 
     <!-- Navigation -->
     <message id="frontpage">forsiden</message>
